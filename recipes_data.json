@@ -79,7 +79,8 @@
       "шурпа",
       "горячее",
       "сытно"
-    ]
+    ],
+    "dishImage": "assets/dishes/shurpa_kazan.jpg"
   },
   {
     "id": "mushrooms_roast",
@@ -140,7 +141,8 @@
       "духовка",
       "пост",
       "закуска"
-    ]
+    ],
+    "dishImage": "assets/dishes/mushrooms_roast.jpg"
   },
   {
     "id": "homemade_buns",
@@ -226,7 +228,8 @@
       "булочки",
       "к чаю",
       "домашнее"
-    ]
+    ],
+    "dishImage": "assets/dishes/homemade_buns.jpg"
   },
   {
     "id": "salad_korean_chicken",
@@ -286,7 +289,8 @@
       "курица",
       "сыр",
       "огурцы"
-    ]
+    ],
+    "dishImage": "assets/dishes/salad_korean_chicken.jpg"
   },
   {
     "id": "salad_korean_smoked",
@@ -341,7 +345,8 @@
       "кукуруза",
       "сухарики",
       "быстро"
-    ]
+    ],
+    "dishImage": "assets/dishes/salad_korean_smoked.jpg"
   },
   {
     "id": "salad_korean_crab",
@@ -400,7 +405,8 @@
       "яйца",
       "сыр",
       "праздничный"
-    ]
+    ],
+    "dishImage": "assets/dishes/salad_korean_crab.jpg"
   },
   {
     "id": "salad_korean_crepe",
@@ -464,7 +470,8 @@
       "яичные блинчики",
       "лёгкий",
       "свежий"
-    ]
+    ],
+    "dishImage": "assets/dishes/salad_korean_crepe.jpg"
   },
   {
     "id": "radish_snack",
@@ -530,7 +537,8 @@
       "яйца",
       "намазка",
       "весна"
-    ]
+    ],
+    "dishImage": "assets/dishes/radish_snack.jpg"
   },
   {
     "id": "irga_cherry_liqueur",
@@ -602,7 +610,8 @@
       "напитки",
       "погреб",
       "секрет"
-    ]
+    ],
+    "dishImage": "assets/dishes/irga_cherry_liqueur.jpg"
   },
   {
     "id": "irga_vanilla_liqueur",
@@ -668,7 +677,8 @@
       "имбирь",
       "пряности",
       "зима"
-    ]
+    ],
+    "dishImage": "assets/dishes/irga_vanilla_liqueur.jpg"
   },
   {
     "id": "french_meat",
@@ -734,7 +744,8 @@
       "духовка",
       "праздник",
       "сытно"
-    ]
+    ],
+    "dishImage": "assets/dishes/french_meat.jpg"
   },
   {
     "id": "salad_russian_beauty",
@@ -799,7 +810,8 @@
       "ветчина",
       "помидоры",
       "сыр"
-    ]
+    ],
+    "dishImage": "assets/dishes/salad_russian_beauty.jpg"
   },
   {
     "id": "salad_winter_olivier",
@@ -869,7 +881,8 @@
       "колбаса",
       "горошек",
       "новый год"
-    ]
+    ],
+    "dishImage": "assets/dishes/salad_winter_olivier.jpg"
   },
   {
     "id": "salad_smoked_cabbage",
@@ -933,7 +946,8 @@
       "пекинская капуста",
       "помидоры",
       "хруст"
-    ]
+    ],
+    "dishImage": "assets/dishes/salad_smoked_cabbage.jpg"
   },
   {
     "id": "salad_layered_mushrooms",
@@ -1003,7 +1017,8 @@
       "мясо",
       "сыр",
       "банкет"
-    ]
+    ],
+    "dishImage": "assets/dishes/salad_layered_mushrooms.jpg"
   },
   {
     "id": "salad_fruit_walnut",
@@ -1072,7 +1087,8 @@
       "йогурт",
       "полезно",
       "сладкое"
-    ]
+    ],
+    "dishImage": "assets/dishes/salad_fruit_walnut.jpg"
   },
   {
     "id": "tartlets_salmon",
@@ -1131,7 +1147,8 @@
       "сёмга",
       "творожный сыр",
       "фуршет"
-    ]
+    ],
+    "dishImage": "assets/dishes/tartlets_salmon.jpg"
   },
   {
     "id": "lavash_rolls",
@@ -1185,7 +1202,8 @@
       "ветчина",
       "корейская морковь",
       "закуска"
-    ]
+    ],
+    "dishImage": "assets/dishes/lavash_rolls.jpg"
   },
   {
     "id": "sprat_sandwiches",
@@ -1245,7 +1263,8 @@
       "гренки",
       "застолье",
       "ностальгия"
-    ]
+    ],
+    "dishImage": "assets/dishes/sprat_sandwiches.jpg"
   },
   {
     "id": "crispy_nuggets",
@@ -1306,7 +1325,8 @@
       "хрустящее",
       "дети",
       "быстро"
-    ]
+    ],
+    "dishImage": "assets/dishes/crispy_nuggets.jpg"
   },
   {
     "id": "potato_pancakes_ham_cheese",
@@ -1377,7 +1397,8 @@
       "сыр",
       "завтрак",
       "горячее"
-    ]
+    ],
+    "dishImage": "assets/dishes/potato_pancakes_ham_cheese.jpg"
   },
   {
     "id": "pickled_peppers_24h",
@@ -1453,7 +1474,8 @@
       "чеснок",
       "зелень",
       "заготовки"
-    ]
+    ],
+    "dishImage": "assets/dishes/pickled_peppers_24h.jpg"
   },
   {
     "id": "warm_salad_green_beans",
@@ -1524,7 +1546,8 @@
       "бальзамик",
       "пп",
       "диета"
-    ]
+    ],
+    "dishImage": "assets/dishes/warm_salad_green_beans.jpg"
   },
   {
     "id": "zucchini_chicken_rolls",
@@ -1589,7 +1612,8 @@
       "базилик",
       "духовка",
       "легко"
-    ]
+    ],
+    "dishImage": "assets/dishes/zucchini_chicken_rolls.jpg"
   },
   {
     "id": "salmorejo_soup",
@@ -1655,7 +1679,8 @@
       "холодный суп",
       "лето",
       "испания"
-    ]
+    ],
+    "dishImage": "assets/dishes/salmorejo_soup.jpg"
   },
   {
     "id": "fluffy_kefir_pancakes",
@@ -1722,7 +1747,8 @@
       "пышные",
       "к чаю",
       "мамин секрет"
-    ]
+    ],
+    "dishImage": "assets/dishes/fluffy_kefir_pancakes.jpg"
   },
   {
     "id": "cabbage_cutlets_milk",
@@ -1792,7 +1818,8 @@
       "манка",
       "нежно",
       "овощи"
-    ]
+    ],
+    "dishImage": "assets/dishes/cabbage_cutlets_milk.jpg"
   },
   {
     "id": "cabbage_cutlets_veggie",
@@ -1857,7 +1884,8 @@
       "укроп",
       "котлеты",
       "постно"
-    ]
+    ],
+    "dishImage": "assets/dishes/cabbage_cutlets_veggie.jpg"
   },
   {
     "id": "azu_tatarian",
@@ -1939,7 +1967,8 @@
       "картофель",
       "казан",
       "сытно"
-    ]
+    ],
+    "dishImage": "assets/dishes/azu_tatarian.jpg"
   },
   {
     "id": "beauty_curd_mask",
@@ -1984,7 +2013,8 @@
       "мёд",
       "уход",
       "молодость"
-    ]
+    ],
+    "dishImage": "assets/dishes/beauty_curd_mask.jpg"
   },
   {
     "id": "beauty_herbal_lotion",
@@ -2029,7 +2059,8 @@
       "травы",
       "тонус",
       "уход"
-    ]
+    ],
+    "dishImage": "assets/dishes/beauty_herbal_lotion.jpg"
   },
   {
     "id": "beauty_soda_peeling",
@@ -2069,7 +2100,8 @@
       "очищение",
       "поры",
       "уход"
-    ]
+    ],
+    "dishImage": "assets/dishes/beauty_soda_peeling.jpg"
   },
   {
     "id": "beauty_hand_elixir",
@@ -2114,6 +2146,7 @@
       "уход для рук",
       "ночь",
       "мягкость"
-    ]
+    ],
+    "dishImage": "assets/dishes/beauty_hand_elixir.jpg"
   }
 ]
