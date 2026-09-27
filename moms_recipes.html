@@ -1,0 +1,1682 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>МАМИНЫ РЕЦЕПТЫ — Семейный кулинарный архив</title>
+<meta name="description" content="Подлинные рукописные рецепты из семейных тетрадей и блокнотов: 33 проверенных домашних блюда, томлёные кушанья в казане, праздничные салаты, воздушная выпечка и погребные наливки.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2308090b'/%3E%3Cpath d='M20 46h24v4H20zM32 14c-7.7 0-14 6.3-14 14 0 5.4 3 10 7.4 12.4l1.2.7h10.8l1.2-.7C43 38 46 33.4 46 28c0-7.7-6.3-14-14-14z' fill='%23d6f740'/%3E%3Ccircle cx='32' cy='28' r='4' fill='%2308090b'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&family=Manrope:wght@400..800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ============ БАЗА И ТЕМА (НЕО-БРУТАЛИЗМ) ============ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#08090b;
+  --bg-2:#0d0e11;
+  --bg-card:rgba(18,20,25,0.72);
+  --bg-card-hover:rgba(26,29,36,0.85);
+  --ink:#eef0e9;
+  --mut:rgba(238,240,233,.62);
+  --mut-2:rgba(238,240,233,.38);
+  --line:rgba(238,240,233,.10);
+  --line-light:rgba(238,240,233,.18);
+  --acid:#d6f740;
+  --acid-soft:rgba(214,247,64,.12);
+  --warm:#f59e0b;
+  --warm-soft:rgba(245,158,11,.12);
+  --coral:#f43f5e;
+  --coral-soft:rgba(244,63,94,.12);
+  --mint:#10b981;
+  --mint-soft:rgba(16,185,129,.12);
+  --font-d:'Unbounded',sans-serif;
+  --font-b:'Manrope',sans-serif;
+  --font-m:'JetBrains Mono',monospace;
+  --ease:cubic-bezier(.65,.05,0,1);
+  --base-font:16px;
+}
+html{scroll-behavior:smooth;scroll-padding-top:110px}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font-b);
+  font-size:var(--base-font);
+  line-height:1.65;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  transition:font-size .25s ease;
+}
+body.font-sm{--base-font:14.5px}
+body.font-md{--base-font:16.5px}
+body.font-lg{--base-font:19px}
+
+::selection{background:var(--acid);color:#0a0b08}
+::-webkit-scrollbar{width:9px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:#26282c;border-radius:99px;border:2px solid var(--bg)}
+::-webkit-scrollbar-thumb:hover{background:#3a3d42}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+img,svg{display:block}
+.mono{font-family:var(--font-m);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.defs{position:absolute;width:0;height:0;overflow:hidden}
+
+/* Пленочное микро-зерно */
+.grain{
+  position:fixed;inset:-60%;width:220%;height:220%;
+  pointer-events:none;z-index:9998;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:.05;
+  mix-blend-mode:overlay;
+  animation:grain 7s steps(8) infinite;
+}
+@keyframes grain{
+  0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}
+  50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-2%)}100%{transform:translate(3%,3%)}
+}
+
+/* ============ МАГНИТНЫЙ КУРСОР ============ */
+.cursor-dot,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;border-radius:50%;display:none}
+.cursor-dot{width:6px;height:6px;background:var(--acid);transform:translate(-50%,-50%)}
+.cursor-ring{
+  width:36px;height:36px;border:1px solid rgba(238,240,233,.5);
+  transform:translate(-50%,-50%);
+  mix-blend-mode:difference;
+  transition:width .35s var(--ease),height .35s var(--ease),opacity .3s;
+}
+body.cursor-hover .cursor-ring{width:64px;height:64px;border-color:var(--acid)}
+body.cursor-dragging .cursor-ring{width:90px;height:90px;opacity:0}
+@media (hover:hover) and (pointer:fine){
+  .cursor-dot,.cursor-ring{display:block}
+}
+
+/* ============ ПРЕЛОАДЕР ============ */
+.preloader{
+  position:fixed;inset:0;z-index:9990;
+  background:var(--bg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;
+}
+.pre-word{display:flex;overflow:hidden;letter-spacing:.08em}
+.pre-word span{
+  font-family:var(--font-d);font-weight:700;
+  font-size:clamp(32px,6.5vw,78px);line-height:1;
+  display:inline-block;transform:translateY(120%);
+}
+.pre-word span:nth-child(1){color:var(--acid)}
+.pre-word span:nth-child(7){color:var(--warm)}
+.pre-bar{width:min(280px,60vw);height:1px;background:var(--line);overflow:hidden}
+.pre-fill{height:100%;width:100%;background:var(--acid);transform:scaleX(0);transform-origin:left}
+.pre-num{font-variant-numeric:tabular-nums}
+
+/* ============ НАВИГАЦИЯ ============ */
+.nav{
+  position:fixed;top:18px;left:50%;transform:translateX(-50%);
+  z-index:900;width:min(1240px,calc(100% - 32px));
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 14px 12px 24px;border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(10,11,13,.52);
+  backdrop-filter:blur(20px) saturate(1.4);
+  -webkit-backdrop-filter:blur(20px) saturate(1.4);
+  transition:background .5s,padding .5s,border-color .5s;
+}
+.nav.scrolled{background:rgba(10,11,13,.88);border-color:rgba(238,240,233,.18);padding:9px 12px 9px 22px}
+.nav-logo{
+  font-family:var(--font-d);font-weight:700;font-size:16px;letter-spacing:.04em;
+  display:flex;align-items:center;gap:12px;
+}
+.nav-logo i{width:8px;height:8px;border-radius:50%;background:var(--acid);display:inline-block;box-shadow:0 0 10px var(--acid)}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-links a{
+  font-family:var(--font-m);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);
+  transition:color .3s;position:relative;
+}
+.nav-links a::after{content:'';position:absolute;left:0;bottom:-5px;width:100%;height:1px;background:var(--acid);transform:scaleX(0);transform-origin:right;transition:transform .4s var(--ease)}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a:hover::after{transform:scaleX(1);transform-origin:left}
+
+.nav-controls{display:flex;align-items:center;gap:10px}
+.font-toggles{
+  display:flex;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:999px;padding:2px;
+}
+.font-btn{
+  padding:4px 10px;font-family:var(--font-m);font-size:11px;font-weight:600;border-radius:999px;color:var(--mut);transition:background .2s,color .2s;
+}
+.font-btn.active{background:var(--acid);color:#0a0b08}
+
+.nav-fav-btn{
+  font-family:var(--font-m);font-size:11px;letter-spacing:.1em;
+  padding:8px 16px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(255,255,255,.03);color:var(--ink);
+  display:flex;align-items:center;gap:6px;transition:background .3s,border-color .3s;
+}
+.nav-fav-btn:hover{border-color:var(--coral);background:var(--coral-soft);color:var(--coral)}
+
+.nav-cta{
+  font-family:var(--font-m);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  padding:10px 20px;border-radius:999px;background:var(--acid);color:#0a0b08;font-weight:700;
+  display:flex;align-items:center;gap:8px;white-space:nowrap;
+  transition:background .3s,transform .2s;
+}
+.nav-cta:hover{background:#e6ff5b;transform:scale(1.02)}
+@media (max-width:980px){.nav-links{display:none}}
+
+/* ============ HERO СЕКЦИЯ ============ */
+.hero{position:relative;min-height:92vh;display:flex;align-items:center;overflow:hidden;padding:150px 8vw 100px}
+.goo-wrap{
+  position:absolute;inset:0;z-index:0;
+  filter:url(#gooFilter);
+  -webkit-mask-image:radial-gradient(130% 130% at 50% 38%,#000 55%,transparent 80%);
+  mask-image:radial-gradient(130% 130% at 50% 38%,#000 55%,transparent 80%);
+}
+#goo{width:100%;height:100%;display:block}
+.hero-inner{position:relative;z-index:2;max-width:1150px}
+.hero-tag{margin-bottom:28px;display:flex;align-items:center;gap:14px}
+.hero-tag .dot{width:8px;height:8px;border-radius:50%;background:var(--acid);animation:pulse 2.4s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(214,247,64,.6)}55%{box-shadow:0 0 0 12px rgba(214,247,64,0)}}
+.hero-title{
+  font-family:var(--font-d);font-weight:700;
+  font-size:clamp(40px,7.5vw,108px);
+  line-height:1.02;letter-spacing:-.01em;text-transform:uppercase;
+}
+.h-line{display:block;overflow:hidden;padding-bottom:.06em;margin-bottom:-.06em}
+.h-line .hw{display:inline-block}
+.h-line.outline{color:transparent;-webkit-text-stroke:1.5px rgba(238,240,233,.8)}
+.w{display:inline-block;overflow:hidden;vertical-align:top}
+.wi{display:inline-block;will-change:transform}
+.hero-sub{max-width:620px;margin-top:32px;font-size:18px;color:var(--mut);font-weight:400;line-height:1.65}
+.hero-sub b{color:var(--ink);font-weight:700}
+.hero-cta{display:flex;gap:14px;margin-top:40px;flex-wrap:wrap}
+
+.btn{
+  position:relative;display:inline-flex;align-items:center;gap:12px;
+  font-family:var(--font-d);font-weight:600;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;
+  padding:18px 32px;border-radius:999px;white-space:nowrap;
+  transition:background .3s,border-color .3s,transform .2s,box-shadow .3s;
+}
+.btn svg{width:16px;height:16px;flex:none}
+.btn-primary{background:var(--acid);color:#0a0b08}
+.btn-primary:hover{background:#e6ff5b;transform:translateY(-2px);box-shadow:0 12px 30px -10px rgba(214,247,64,.4)}
+.btn-ghost{
+  border:1px solid rgba(238,240,233,.22);color:var(--ink);
+  background:rgba(255,255,255,.03);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
+.btn-ghost:hover{border-color:rgba(238,240,233,.45);background:rgba(255,255,255,.06);transform:translateY(-2px)}
+
+/* ЖИДКАЯ ЛИНЗА */
+.lens{
+  position:absolute;z-index:5;width:210px;height:210px;border-radius:50%;
+  top:0;left:0;will-change:transform;
+  cursor:grab;touch-action:none;user-select:none;
+  -webkit-backdrop-filter:blur(4px) saturate(1.35) brightness(1.08);
+  backdrop-filter:url(#lensFilter) blur(4px) saturate(1.35) brightness(1.08);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.16),
+    inset 10px 16px 26px rgba(255,255,255,.10),
+    inset -12px -20px 34px rgba(0,0,0,.35),
+    0 34px 70px -22px rgba(0,0,0,.65);
+}
+.lens::before{
+  content:'';position:absolute;inset:0;border-radius:50%;
+  background:radial-gradient(58% 40% at 32% 25%,rgba(255,255,255,.24),transparent 62%);
+  pointer-events:none;
+}
+.lens::after{
+  content:'';position:absolute;inset:8px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.08);pointer-events:none;
+}
+.lens.grabbed{cursor:grabbing}
+.lens-hint{
+  position:absolute;left:50%;bottom:-34px;transform:translateX(-50%);
+  white-space:nowrap;color:var(--mut);transition:opacity .5s;pointer-events:none;font-size:10px;
+}
+.lens-hint.hide{opacity:0}
+@media (max-width:900px){.lens{width:150px;height:150px}}
+
+/* СТАТИСТИКА В HERO */
+.hero-stats{
+  position:absolute;left:8vw;bottom:40px;z-index:2;
+  display:flex;gap:0;font-variant-numeric:tabular-nums;
+}
+.hstat{padding:0 28px;border-left:1px solid var(--line)}
+.hstat:first-child{padding-left:0;border-left:none}
+.hstat b{display:block;font-family:var(--font-d);font-weight:600;font-size:22px;color:var(--ink);margin-bottom:2px}
+.hstat b em{font-style:normal;color:var(--acid)}
+@media (max-width:960px){.hero-stats{position:static;margin-top:60px;flex-wrap:wrap;gap:20px 0}.hstat{padding:0 18px}}
+
+/* БЕГУЩАЯ СТРОКА */
+.marquee-sec{position:relative;overflow:hidden;padding:48px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#070809}
+.marquee-band{
+  display:flex;width:110vw;margin-left:-5vw;
+  transform:rotate(-1.6deg);
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  overflow:hidden;
+}
+.marquee-track{display:flex;flex:none;animation:marq 38s linear infinite}
+.marquee-group{display:flex;align-items:center;flex:none;padding:16px 0}
+.mq-item{
+  display:flex;align-items:center;gap:32px;padding-right:32px;
+  font-family:var(--font-d);font-weight:500;font-size:clamp(16px,2.1vw,24px);
+  text-transform:uppercase;letter-spacing:.02em;white-space:nowrap;color:var(--mut-2);
+}
+.mq-item.acid{color:var(--acid)}
+.mq-item.warm{color:var(--warm)}
+.mq-item svg{width:10px;height:10px;fill:currentColor;opacity:.8;flex:none}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* ============ ПАНЕЛЬ ПОИСКА И ФИЛЬТРОВ ============ */
+.catalog-sec{position:relative;padding:100px 8vw 140px}
+.catalog-head{margin-bottom:44px}
+.sec-tag{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.sec-tag::before{content:'';width:34px;height:1px;background:var(--acid)}
+.sec-title{
+  font-family:var(--font-d);font-weight:600;
+  font-size:clamp(28px,4.5vw,56px);line-height:1.1;text-transform:uppercase;letter-spacing:-.01em;
+}
+.sec-title em{font-style:normal;color:var(--acid)}
+
+.toolbar{
+  display:flex;flex-direction:column;gap:24px;margin-bottom:50px;
+  padding:28px;border-radius:24px;border:1px solid var(--line);
+  background:rgba(14,16,20,0.65);
+  backdrop-filter:blur(20px);
+}
+.search-row{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.search-wrap{
+  position:relative;flex:1;min-width:280px;display:flex;align-items:center;
+}
+.search-icon{position:absolute;left:20px;pointer-events:none;color:var(--mut)}
+.search-icon svg{width:18px;height:18px;stroke:currentColor}
+.search-input{
+  width:100%;padding:16px 48px 16px 54px;border-radius:999px;
+  border:1px solid var(--line-light);background:rgba(255,255,255,.03);
+  color:var(--ink);font-family:var(--font-b);font-size:15px;
+  outline:none;transition:border-color .3s,background .3s,box-shadow .3s;
+}
+.search-input:focus{
+  border-color:var(--acid);background:rgba(255,255,255,.06);
+  box-shadow:0 0 24px -6px rgba(214,247,64,.3);
+}
+.search-clear{
+  position:absolute;right:18px;color:var(--mut);display:none;padding:6px;
+  border-radius:50%;transition:color .2s;
+}
+.search-clear:hover{color:var(--ink)}
+.search-clear svg{width:16px;height:16px;stroke:currentColor}
+
+/* Переключатель порций */
+.portion-scaler{
+  display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.03);
+  border:1px solid var(--line);border-radius:999px;padding:6px 14px;
+}
+.portion-scaler span{font-family:var(--font-m);font-size:11px;color:var(--mut);letter-spacing:.08em;text-transform:uppercase}
+.portion-btns{display:flex;gap:4px}
+.portion-btn{
+  padding:6px 12px;border-radius:999px;font-family:var(--font-m);font-size:11px;font-weight:700;
+  border:1px solid transparent;color:var(--mut);transition:background .2s,color .2s,border-color .2s;
+}
+.portion-btn.active{background:var(--acid);color:#0a0b08;border-color:var(--acid)}
+
+/* Категории (табы) */
+.categories-bar{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}
+.categories-bar::-webkit-scrollbar{display:none}
+.cat-btn{
+  display:inline-flex;align-items:center;gap:8px;white-space:nowrap;
+  padding:10px 18px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(255,255,255,.02);font-family:var(--font-m);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--mut);transition:border-color .25s,color .25s,background .25s,transform .2s;
+}
+.cat-btn:hover{border-color:rgba(238,240,233,.3);color:var(--ink)}
+.cat-btn.active{
+  background:var(--acid);color:#0a0b08;border-color:var(--acid);font-weight:700;
+}
+.cat-badge{
+  display:inline-block;padding:2px 7px;border-radius:999px;font-size:10px;
+  background:rgba(0,0,0,.25);color:inherit;font-weight:700;
+}
+.cat-btn.active .cat-badge{background:rgba(0,0,0,.35);color:#0a0b08}
+
+/* Результаты счетчик */
+.results-meta{
+  display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;
+  padding:0 8px;font-family:var(--font-m);font-size:12px;color:var(--mut);
+}
+
+/* ============ СЕТКА РЕЦЕПТОВ ============ */
+.recipes-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:32px;
+}
+@media (max-width:480px){.recipes-grid{grid-template-columns:1fr}}
+
+.rcard{
+  position:relative;border-radius:24px;border:1px solid var(--line);
+  background:var(--bg-card);overflow:hidden;
+  transition:border-color .4s,transform .35s var(--ease),box-shadow .4s;
+  display:flex;flex-direction:column;
+}
+.rcard::before{
+  content:'';position:absolute;inset:0;opacity:0;transition:opacity .5s;
+  background:radial-gradient(400px 220px at var(--mx,50%) 20%,rgba(214,247,64,.08),transparent 75%);
+  pointer-events:none;z-index:1;
+}
+.rcard:hover{
+  border-color:rgba(214,247,64,.35);
+  transform:translateY(-6px);
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.75),0 0 25px -5px rgba(214,247,64,.1);
+}
+.rcard:hover::before{opacity:1}
+
+.rcard-media{
+  position:relative;width:100%;height:220px;overflow:hidden;
+  background:#13151a;cursor:pointer;
+}
+.rcard-media img{
+  width:100%;height:100%;object-fit:cover;filter:brightness(0.92) contrast(1.05);
+  transition:transform .7s var(--ease),filter .5s;
+}
+.rcard:hover .rcard-media img{transform:scale(1.08);filter:brightness(1)}
+.rcard-badge{
+  position:absolute;top:16px;left:16px;z-index:2;
+  background:rgba(8,9,11,.82);backdrop-filter:blur(8px);
+  padding:6px 14px;border-radius:99px;border:1px solid var(--line);
+  font-family:var(--font-m);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--acid);
+  display:flex;align-items:center;gap:6px;
+}
+.rcard-time{
+  position:absolute;top:16px;right:16px;z-index:2;
+  background:rgba(8,9,11,.82);backdrop-filter:blur(8px);
+  padding:6px 12px;border-radius:99px;border:1px solid var(--line);
+  font-family:var(--font-m);font-size:10.5px;color:var(--ink);
+}
+.rcard-fav{
+  position:absolute;bottom:14px;right:14px;z-index:2;
+  width:38px;height:38px;border-radius:50%;
+  background:rgba(8,9,11,.8);backdrop-filter:blur(8px);
+  border:1px solid var(--line);display:flex;align-items:center;justify-content:center;
+  color:var(--mut);transition:color .25s,border-color .25s,transform .2s;
+}
+.rcard-fav:hover{color:var(--coral);border-color:var(--coral);transform:scale(1.1)}
+.rcard-fav.active{color:var(--coral);border-color:var(--coral);background:var(--coral-soft)}
+.rcard-fav svg{width:16px;height:16px;fill:currentColor}
+
+.rcard-body{padding:28px 24px;display:flex;flex-direction:column;flex:1;position:relative;z-index:2}
+.rcard-cat{font-family:var(--font-m);font-size:11px;color:var(--warm);text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px}
+.rcard-title{
+  font-family:var(--font-d);font-weight:600;font-size:20px;line-height:1.25;
+  margin-bottom:16px;color:var(--ink);transition:color .3s;
+}
+.rcard:hover .rcard-title{color:var(--acid)}
+
+.rcard-ingredients-preview{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.ing-pill{
+  font-family:var(--font-m);font-size:10.5px;padding:4px 10px;border-radius:999px;
+  background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--mut);
+}
+.ing-pill b{color:var(--ink);font-weight:600}
+
+.rcard-tip{
+  background:rgba(214,247,64,.04);border-left:2px solid var(--acid);
+  padding:10px 14px;border-radius:0 10px 10px 0;margin-top:auto;margin-bottom:24px;
+  font-size:13px;color:var(--mut);line-height:1.5;font-style:italic;
+}
+.rcard-tip b{color:var(--acid);font-style:normal;font-family:var(--font-m);font-size:10.5px;display:block;margin-bottom:2px}
+
+.rcard-actions{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:auto}
+.btn-cook{
+  background:var(--acid);color:#0a0b08;font-family:var(--font-d);font-weight:600;
+  font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;
+  padding:14px 20px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:background .25s,transform .2s;
+}
+.btn-cook:hover{background:#e6ff5b;transform:scale(1.02)}
+.btn-photo-orig{
+  border:1px solid var(--line-light);padding:14px 18px;border-radius:999px;
+  font-family:var(--font-m);font-size:11px;color:var(--mut);
+  display:flex;align-items:center;gap:6px;transition:border-color .25s,color .25s;
+}
+.btn-photo-orig:hover{border-color:var(--acid);color:var(--ink)}
+
+/* ============ МОДАЛЬНОЕ ОКНО ПРИГОТОВЛЕНИЯ ============ */
+.modal-overlay{
+  position:fixed;inset:0;z-index:9500;
+  background:rgba(6,7,9,0.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  display:none;align-items:center;justify-content:center;padding:24px;
+  opacity:0;transition:opacity .35s var(--ease);
+}
+.modal-overlay.open{display:flex;opacity:1}
+
+.cook-modal{
+  position:relative;width:min(920px,100%);max-height:90vh;
+  border-radius:28px;border:1px solid var(--line-light);
+  background:rgba(15,17,21,0.95);
+  box-shadow:0 40px 100px -20px rgba(0,0,0,.85);
+  overflow-y:auto;padding:clamp(28px,5vw,56px);
+  transform:scale(.95);transition:transform .35s var(--ease);
+}
+.modal-overlay.open .cook-modal{transform:scale(1)}
+.modal-close{
+  position:absolute;top:28px;right:28px;width:44px;height:44px;border-radius:50%;
+  border:1px solid var(--line-light);display:flex;align-items:center;justify-content:center;
+  color:var(--mut);transition:color .2s,border-color .2s,background .2s;
+}
+.modal-close:hover{color:var(--ink);border-color:var(--acid);background:var(--acid-soft)}
+.modal-close svg{width:18px;height:18px;stroke:currentColor}
+
+.cmodal-header{margin-bottom:34px;padding-right:50px}
+.cmodal-cat{font-family:var(--font-m);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--warm);margin-bottom:8px}
+.cmodal-title{font-family:var(--font-d);font-weight:600;font-size:clamp(24px,3.8vw,42px);line-height:1.15;margin-bottom:16px}
+.cmodal-meta-row{display:flex;gap:20px;align-items:center;flex-wrap:wrap;color:var(--mut);font-size:14px}
+.cmeta-item{display:flex;align-items:center;gap:6px;font-family:var(--font-m);font-size:12px}
+.cmeta-item svg{width:15px;height:15px;stroke:var(--acid)}
+
+/* Таймер шефа */
+.kitchen-timer{
+  margin:28px 0;padding:24px;border-radius:20px;border:1px solid var(--line);
+  background:rgba(214,247,64,.03);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;
+}
+.timer-info b{display:block;font-family:var(--font-m);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--acid);margin-bottom:4px}
+.timer-info span{color:var(--mut);font-size:13px}
+.timer-display{
+  font-family:var(--font-m);font-size:36px;font-weight:700;letter-spacing:.08em;
+  color:var(--ink);font-variant-numeric:tabular-nums;
+}
+.timer-display.running{color:var(--acid);animation:timerPulse 1s infinite alternate}
+@keyframes timerPulse{from{opacity:1}to{opacity:.7}}
+.timer-controls{display:flex;gap:8px}
+.tbtn{
+  padding:10px 18px;border-radius:999px;font-family:var(--font-m);font-size:11px;font-weight:700;
+  border:1px solid var(--line-light);color:var(--ink);background:rgba(255,255,255,.05);
+  transition:background .2s,border-color .2s,color .2s;
+}
+.tbtn:hover{border-color:var(--acid);color:var(--acid)}
+.tbtn-play{background:var(--acid);color:#0a0b08;border-color:var(--acid)}
+.tbtn-play:hover{background:#e6ff5b;color:#0a0b08}
+
+/* Ингредиенты с чекбоксами */
+.cmodal-section{margin-bottom:40px}
+.csec-title{
+  font-family:var(--font-d);font-size:18px;font-weight:600;text-transform:uppercase;
+  margin-bottom:20px;display:flex;align-items:center;gap:12px;
+}
+.csec-title::before{content:'';width:20px;height:2px;background:var(--acid)}
+
+.ingredients-checklist{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.ing-item{
+  display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:14px;
+  border:1px solid var(--line);background:rgba(255,255,255,.02);cursor:pointer;
+  transition:border-color .2s,background .2s;user-select:none;
+}
+.ing-item:hover{border-color:rgba(214,247,64,.3);background:rgba(255,255,255,.04)}
+.ing-item.checked{opacity:.5;border-color:transparent;background:rgba(255,255,255,.01)}
+.ing-item.checked .ing-text{text-decoration:line-through;color:var(--mut-2)}
+.ing-chk{
+  width:20px;height:20px;border-radius:6px;border:1.5px solid var(--line-light);
+  display:flex;align-items:center;justify-content:center;flex:none;transition:background .2s,border-color .2s;
+}
+.ing-item.checked .ing-chk{background:var(--acid);border-color:var(--acid)}
+.ing-chk svg{width:12px;height:12px;stroke:#0a0b08;display:none;stroke-width:3}
+.ing-item.checked .ing-chk svg{display:block}
+.ing-text{font-size:14.5px;color:var(--ink);flex:1}
+.ing-qty{font-family:var(--font-m);font-size:13px;font-weight:600;color:var(--acid);white-space:nowrap}
+
+/* Шаги приготовления */
+.steps-list{list-style:none;display:flex;flex-direction:column;gap:20px}
+.step-row{display:grid;grid-template-columns:48px 1fr;gap:20px;align-items:start}
+.snum{
+  width:44px;height:44px;border-radius:50%;border:1px solid var(--line-light);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-d);font-weight:700;font-size:14px;color:var(--acid);background:var(--acid-soft);
+}
+.stext{color:var(--mut);font-size:16px;line-height:1.7;padding-top:8px}
+.stext b{color:var(--ink)}
+
+.cmodal-tip-box{
+  margin-top:36px;padding:20px 24px;border-radius:18px;
+  background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);
+  display:flex;align-items:start;gap:16px;
+}
+.cmodal-tip-box svg{width:24px;height:24px;stroke:var(--warm);flex:none;margin-top:2px}
+.cmodal-tip-box p{font-size:14.5px;color:var(--ink);line-height:1.6}
+
+.cmodal-footer-actions{display:flex;gap:14px;margin-top:40px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:30px}
+
+/* ============ МОДАЛКА ОРИГИНАЛЬНОГО ФОТО ============ */
+.photo-modal-wrap{
+  position:relative;width:min(1080px,100%);max-height:92vh;
+  border-radius:28px;border:1px solid var(--line-light);
+  background:rgba(12,14,18,0.98);box-shadow:0 50px 120px -30px rgba(0,0,0,.95);
+  display:flex;flex-direction:column;overflow:hidden;
+}
+.pmodal-head{
+  padding:20px 28px;border-bottom:1px solid var(--line);
+  display:flex;justify-content:space-between;align-items:center;gap:20px;
+}
+.pmodal-head h3{font-family:var(--font-d);font-size:17px;font-weight:600}
+.pmodal-head p{font-family:var(--font-m);font-size:11px;color:var(--mut)}
+.pmodal-body{
+  position:relative;flex:1;overflow:auto;display:flex;align-items:center;justify-content:center;padding:20px;background:#060709;
+}
+.pmodal-img{max-width:100%;max-height:70vh;object-fit:contain;border-radius:12px;transition:transform .3s var(--ease)}
+.pmodal-controls{
+  padding:14px 28px;border-top:1px solid var(--line);background:rgba(18,20,25,.95);
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+}
+.pzoom-btns{display:flex;gap:8px}
+.pz-btn{
+  padding:8px 16px;border-radius:999px;border:1px solid var(--line);
+  font-family:var(--font-m);font-size:11px;color:var(--ink);background:rgba(255,255,255,.05);
+}
+.pz-btn:hover{border-color:var(--acid);color:var(--acid)}
+
+/* ============ СЕКЦИЯ FAQ (СЕКРЕТЫ МАМЫ) ============ */
+.faq-sec{position:relative;padding:120px 8vw;background:var(--bg-2);border-top:1px solid var(--line)}
+.faq-list{max-width:920px;border-top:1px solid var(--line);margin-top:50px}
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-q{
+  width:100%;display:flex;justify-content:space-between;align-items:center;gap:24px;
+  padding:32px 4px;text-align:left;
+  font-family:var(--font-d);font-weight:500;font-size:clamp(16px,2.2vw,22px);
+  transition:color .3s;
+}
+.faq-q:hover{color:var(--acid)}
+.faq-q .fx{
+  width:36px;height:36px;flex:none;border-radius:50%;border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .5s var(--ease),border-color .4s,background .4s;
+}
+.faq-q .fx svg{width:14px;height:14px;stroke:var(--mut);transition:stroke .3s}
+.faq-item.open .fx{transform:rotate(135deg);border-color:rgba(214,247,64,.5);background:var(--acid-soft)}
+.faq-item.open .fx svg{stroke:var(--acid)}
+.faq-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s var(--ease)}
+.faq-item.open .faq-a{grid-template-rows:1fr}
+.faq-a-in{overflow:hidden;min-height:0}
+.faq-a p{padding:0 60px 34px 4px;color:var(--mut);max-width:760px;line-height:1.75}
+.faq-a b{color:var(--acid);font-weight:600}
+
+/* ============ ТИЛТ CTA ПАНЕЛЬ ============ */
+.cta{padding:140px 8vw 180px}
+.cta-scene{perspective:1000px;display:flex;justify-content:center}
+.cta-panel{
+  position:relative;width:min(960px,100%);
+  padding:clamp(50px,7vw,90px) clamp(28px,6vw,80px);
+  border-radius:32px;
+  border:1px solid rgba(238,240,233,.14);
+  background:rgba(13,14,17,.65);
+  backdrop-filter:blur(20px) saturate(1.3);-webkit-backdrop-filter:blur(20px) saturate(1.3);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.09),0 60px 120px -40px rgba(0,0,0,.85);
+  transform-style:preserve-3d;will-change:transform;text-align:center;
+}
+.cta-panel::before{
+  content:'';position:absolute;inset:0;border-radius:32px;pointer-events:none;
+  background:radial-gradient(70% 46% at 50% 0%,rgba(214,247,64,.12),transparent 70%);
+}
+.cta-title{
+  font-family:var(--font-d);font-weight:600;font-size:clamp(26px,4.4vw,52px);
+  line-height:1.15;text-transform:uppercase;transform:translateZ(40px);
+}
+.cta-title em{font-style:normal;color:var(--acid)}
+.cta-sub{margin:24px auto 38px;max-width:560px;color:var(--mut);transform:translateZ(30px);font-size:17px;line-height:1.65}
+.cta-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;transform:translateZ(50px)}
+.cta-corner{position:absolute;font-family:var(--font-m);font-size:10px;letter-spacing:.18em;color:var(--mut-2);text-transform:uppercase;transform:translateZ(20px)}
+.cta-corner.tl{top:26px;left:32px}.cta-corner.tr{top:26px;right:32px}
+.cta-corner.bl{bottom:26px;left:32px}.cta-corner.br{bottom:26px;right:32px}
+@media (max-width:700px){.cta-corner.tr,.cta-corner.bl{display:none}}
+
+/* ============ ФУТЕР ============ */
+footer{position:relative;border-top:1px solid var(--line);padding:90px 8vw 44px;overflow:hidden}
+.f-recno{
+  display:flex;justify-content:center;gap:.25%;user-select:none;line-height:1;
+  font-family:var(--font-d);font-size:clamp(36px,9.5vw,140px);
+  margin-bottom:70px;
+}
+.f-recno span{display:inline-block;font-variation-settings:'wght' 250;will-change:font-variation-settings}
+.f-bottom{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.f-links{display:flex;gap:30px;flex-wrap:wrap}
+.f-links a{
+  font-family:var(--font-m);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);
+  display:flex;align-items:center;gap:8px;transition:color .3s;
+}
+.f-links a:hover{color:var(--acid)}
+.f-meta{display:flex;gap:28px;font-variant-numeric:tabular-nums;color:var(--mut)}
+
+[data-reveal]{will-change:transform,opacity}
+@media (prefers-reduced-motion:reduce){
+  .grain{animation:none}
+  .marquee-track{animation-duration:200s}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- SVG ФИЛЬТРЫ ДЛЯ ЖИДКОГО GOO И СТЕКЛЯННОЙ ЛИНЗЫ -->
+<svg class="defs" aria-hidden="true">
+  <defs>
+    <filter id="gooFilter" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="18" result="b"/>
+      <feColorMatrix in="b" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9" result="g"/>
+      <feGaussianBlur in="g" stdDeviation="1.4"/>
+    </filter>
+    <filter id="lensFilter" x="-30%" y="-30%" width="160%" height="160%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="85" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+</svg>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor-dot" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"></div>
+
+<!-- ПРЕЛОАДЕР -->
+<div class="preloader" id="preloader">
+  <div class="pre-word" aria-label="РЕЦЕПТЫ МАМЫ">
+    <span>Р</span><span>Е</span><span>Ц</span><span>Е</span><span>П</span><span>Т</span><span>Ы</span>
+    <span style="width:20px"></span>
+    <span>М</span><span>А</span><span>М</span><span>Ы</span>
+  </div>
+  <div class="pre-bar"><div class="pre-fill" id="preFill"></div></div>
+  <div class="mono pre-num" id="preNum">000</div>
+</div>
+
+<!-- НАВИГАЦИЯ -->
+<header class="nav" id="nav">
+  <a class="nav-logo" href="#top"><i></i>МАМИНЫ РЕЦЕПТЫ</a>
+  <nav class="nav-links">
+    <a href="#catalog" onclick="filterCategory('mains')">Горячее</a>
+    <a href="#catalog" onclick="filterCategory('salads')">Салаты</a>
+    <a href="#catalog" onclick="filterCategory('snacks')">Закуски</a>
+    <a href="#catalog" onclick="filterCategory('bakery')">Выпечка</a>
+    <a href="#catalog" onclick="filterCategory('liqueurs')">Наливки</a>
+    <a href="#catalog" onclick="filterCategory('beauty')">Красота</a>
+    <a href="#faq">Секреты</a>
+  </nav>
+
+  <div class="nav-controls">
+    <!-- Масштабирование шрифта для мамы -->
+    <div class="font-toggles" title="Размер текста для комфортного чтения">
+      <button class="font-btn" onclick="setFontSize('sm')">A-</button>
+      <button class="font-btn active" onclick="setFontSize('md')">A</button>
+      <button class="font-btn" onclick="setFontSize('lg')">A+</button>
+    </div>
+
+    <!-- Избранное -->
+    <button class="nav-fav-btn" id="navFavBtn" onclick="toggleFavFilter()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+      <span id="favCount">0</span>
+    </button>
+
+    <a class="nav-cta" href="#catalog">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      К рецептам
+    </a>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO СЕКЦИЯ -->
+  <section class="hero" id="hero">
+    <div class="goo-wrap"><canvas id="goo"></canvas></div>
+
+    <div class="hero-inner">
+      <p class="mono hero-tag" data-intro><span class="dot"></span>СЕМЕЙНЫЙ КУЛИНАРНЫЙ АРХИВ / РУКОПИСНЫЕ ТЕТРАДИ</p>
+      <h1 class="hero-title">
+        <span class="h-line"><span class="hw">Мамины</span></span>
+        <span class="h-line"><span class="hw">Золотые</span></span>
+        <span class="h-line outline"><span class="hw">Рецепты</span></span>
+      </h1>
+      <p class="hero-sub" data-intro>
+        Подлинные записи из маминых блокнотов: <b>33 домашних блюда</b> с точными пропорциями, пошаговыми инструкциями, интерактивным калькулятором порций, кухонным таймером и сканами оригинальных страниц.
+      </p>
+      <div class="hero-cta" data-intro>
+        <a class="btn btn-primary" href="#catalog">
+          Открыть все блюда
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <button class="btn btn-ghost" onclick="pickRandomDish()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="8" cy="8" r="1.5" fill="currentColor"/><circle cx="16" cy="16" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+          Что приготовить? 🎲
+        </button>
+      </div>
+    </div>
+
+    <!-- Интерактивная оптическая линза преломления -->
+    <div class="lens" id="lens">
+      <span class="lens-hint mono" id="lensHint">( перетащите линзу )</span>
+    </div>
+
+    <div class="hero-stats" data-intro>
+      <div class="hstat"><b>33<em> блюда</em></b><span class="mono">проверенных рецепта</span></div>
+      <div class="hstat"><b>17<em> фото</em></b><span class="mono">маминых рукописей</span></div>
+      <div class="hstat"><b>0.5<em>x / 2x</em></b><span class="mono">умный расчёт порций</span></div>
+      <div class="hstat"><b>100<em>%</em></b><span class="mono">домашнего уюта</span></div>
+    </div>
+  </section>
+
+  <!-- БЕГУЩАЯ СТРОКА -->
+  <div class="marquee-sec" aria-hidden="true">
+    <div class="marquee-band">
+      <div class="marquee-track" id="marqTrack">
+        <div class="marquee-group">
+          <span class="mq-item acid">Шурпа в казане <svg viewBox="0 0 10 10"><rect x="2" y="2" width="6" height="6" transform="rotate(45 5 5)"/></svg></span>
+          <span class="mq-item">Пышные оладушки на кефире <svg viewBox="0 0 10 10"><rect x="2" y="2" width="6" height="6" transform="rotate(45 5 5)"/></svg></span>
+          <span class="mq-item warm">Азу по-татарски в горшочке <svg viewBox="0 0 10 10"><rect x="2" y="2" width="6" height="6" transform="rotate(45 5 5)"/></svg></span>
+          <span class="mq-item">Наливка из ирги 16 недель <svg viewBox="0 0 10 10"><rect x="2" y="2" width="6" height="6" transform="rotate(45 5 5)"/></svg></span>
+          <span class="mq-item acid">Домашние булочки с заливкой <svg viewBox="0 0 10 10"><rect x="2" y="2" width="6" height="6" transform="rotate(45 5 5)"/></svg></span>
+          <span class="mq-item">Маринованный перец за сутки <svg viewBox="0 0 10 10"><rect x="2" y="2" width="6" height="6" transform="rotate(45 5 5)"/></svg></span>
+          <span class="mq-item warm">Рулетики из кабачков с курицей <svg viewBox="0 0 10 10"><rect x="2" y="2" width="6" height="6" transform="rotate(45 5 5)"/></svg></span>
+        </div>
+        <div class="marquee-group">
+          <span class="mq-item acid">Шурпа в казане <svg viewBox="0 0 10 10"><rect x="2" y="2" width="6" height="6" transform="rotate(45 5 5)"/></svg></span>
+          <span class="mq-item">Пышные оладушки на кефире <svg viewBox="0 0 10 10"><rect x="2" y="2" width="6" height="6" transform="rotate(45 5 5)"/></svg></span>
+          <span class="mq-item warm">Азу по-татарски в горшочке <svg viewBox="0 0 10 10"><rect x="2" y="2" width="6" height="6" transform="rotate(45 5 5)"/></svg></span>
+          <span class="mq-item">Наливка из ирги 16 недель <svg viewBox="0 0 10 10"><rect x="2" y="2" width="6" height="6" transform="rotate(45 5 5)"/></svg></span>
+          <span class="mq-item acid">Домашние булочки с заливкой <svg viewBox="0 0 10 10"><rect x="2" y="2" width="6" height="6" transform="rotate(45 5 5)"/></svg></span>
+          <span class="mq-item">Маринованный перец за сутки <svg viewBox="0 0 10 10"><rect x="2" y="2" width="6" height="6" transform="rotate(45 5 5)"/></svg></span>
+          <span class="mq-item warm">Рулетики из кабачков с курицей <svg viewBox="0 0 10 10"><rect x="2" y="2" width="6" height="6" transform="rotate(45 5 5)"/></svg></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- КАТАЛОГ РЕЦЕПТОВ -->
+  <section class="catalog-sec" id="catalog">
+    <div class="catalog-head">
+      <p class="mono sec-tag" data-reveal>Коллекция вкуса</p>
+      <h2 class="sec-title" data-split>Тетрадь <em>маминых</em> секретов</h2>
+    </div>
+
+    <!-- Тулбар: Поиск, категории, порции -->
+    <div class="toolbar" data-reveal>
+      <div class="search-row">
+        <div class="search-wrap">
+          <span class="search-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </span>
+          <input type="text" id="searchInput" class="search-input" placeholder="Найти рецепт или ингредиент (чеснок, сыр, ирга, оладушки...)" autocomplete="off">
+          <button class="search-clear" id="searchClear" onclick="clearSearch()" aria-label="Очистить">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        <!-- Переключатель порций -->
+        <div class="portion-scaler">
+          <span>Порции:</span>
+          <div class="portion-btns">
+            <button class="portion-btn" onclick="setPortionScale(0.5)">0.5x</button>
+            <button class="portion-btn active" onclick="setPortionScale(1)">1x</button>
+            <button class="portion-btn" onclick="setPortionScale(2)">2x</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Категории -->
+      <div class="categories-bar" id="categoriesBar">
+        <button class="cat-btn active" onclick="filterCategory('all')">🌟 Все <span class="cat-badge" id="badgeAll">33</span></button>
+        <button class="cat-btn" onclick="filterCategory('mains')">🍲 Горячее <span class="cat-badge" id="badgeMains">9</span></button>
+        <button class="cat-btn" onclick="filterCategory('soups')">🥣 Супы <span class="cat-badge" id="badgeSoups">1</span></button>
+        <button class="cat-btn" onclick="filterCategory('salads')">🥗 Салаты <span class="cat-badge" id="badgeSalads">8</span></button>
+        <button class="cat-btn" onclick="filterCategory('snacks')">🥖 Закуски <span class="cat-badge" id="badgeSnacks">5</span></button>
+        <button class="cat-btn" onclick="filterCategory('bakery')">🥐 Выпечка <span class="cat-badge" id="badgeBakery">3</span></button>
+        <button class="cat-btn" onclick="filterCategory('liqueurs')">🍷 Наливки <span class="cat-badge" id="badgeLiqueurs">2</span></button>
+        <button class="cat-btn" onclick="filterCategory('beauty')">🌸 Красота <span class="cat-badge" id="badgeBeauty">4</span></button>
+        <button class="cat-btn" onclick="filterCategory('fav')">❤️ Любимые <span class="cat-badge" id="badgeFav">0</span></button>
+      </div>
+    </div>
+
+    <div class="results-meta">
+      <span id="resultsCount">Показано: 33 рецепта</span>
+      <span id="scaleLabel">Масштаб продуктов: 1x (исходный)</span>
+    </div>
+
+    <!-- Сетка карточек -->
+    <div class="recipes-grid" id="recipesGrid">
+      <!-- Генерируется на лету через JS -->
+    </div>
+  </section>
+
+  <!-- СЕКРЕЦИИ МАМЫ (FAQ) -->
+  <section class="faq-sec" id="faq">
+    <div class="sec-head">
+      <p class="mono sec-tag" data-reveal>Опыт поколений</p>
+      <h2 class="sec-title" data-split>Секреты <em>маминой</em> кухни</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item" data-reveal>
+        <button class="faq-q">Почему тесто для оладий на кефире нельзя перемешивать после замеса?<span class="fx"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+        <div class="faq-a"><div class="faq-a-in"><p>Когда тёплый кефир соединяется с содой, образуются миллионы микропузырьков углекислого газа. Если после 15 минут настаивания перемешать тесто ложкой, эта воздушная структура разрушится, и оладьи на сковороде опадут и станут резиновыми. <b>Главное правило мамы:</b> аккуратно зачерпывать ложкой с самого края миски и сразу отправлять на горячую сковороду!</p></div></div>
+      </div>
+      <div class="faq-item" data-reveal>
+        <button class="faq-q">В чём тайна насыщенного вкуса татарского азу?<span class="fx"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+        <div class="faq-a"><div class="faq-a-in"><p>Два обязательных правила: <b>бочковые огурцы очищают от грубой кожицы</b> и припускают отдельно в ковшике с парой ложек бульона 10 минут, а <b>картофель обжаривают отдельно</b> до полуготовности. Если положить сырой картофель вместе с кислыми огурцами и томатами, кислота не даст ему размягчиться, и он останется «стеклянным». Только раздельное томление создаёт тот самый густой бархатный соус.</p></div></div>
+      </div>
+      <div class="faq-item" data-reveal>
+        <button class="faq-q">Зачем в наливку из ирги добавлять вишнёвый лист?<span class="fx"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+        <div class="faq-a"><div class="faq-a-in"><p>Сама по себе ирга очень сладкая, но нейтральная по кислотности и не имеет яркого собственного терпенового букета. Отвар 300 свежих вишнёвых листьев с лимоном насыщает напиток <b>тонким миндально-вишнёвым послевкусием</b> и природными дубильными веществами. После 16 недель в тёмном прохладном погребе напиток превосходит по вкусу выдержанные ликёры.</p></div></div>
+      </div>
+      <div class="faq-item" data-reveal>
+        <button class="faq-q">Как сохранить сочность куриных наггетсов без фритюрницы?<span class="fx"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+        <div class="faq-a"><div class="faq-a-in"><p>Панировка из крупно раздробленных картофельных чипсов уже содержит идеальную маслянистость и соль. Запекание при высокой температуре <b>(200°C ровно 15–18 минут)</b> запечатывает мясные соки внутри под хрустящей оболочкой. Курица остаётся нежной и сочной, не плавая в лишнем перекалённом масле.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA ТИЛТ ПАНЕЛЬ -->
+  <section class="cta" id="cta">
+    <div class="cta-scene">
+      <div class="cta-panel" id="ctaPanel" data-reveal>
+        <span class="cta-corner tl">100% Домашнее</span>
+        <span class="cta-corner tr">Семейный очаг</span>
+        <span class="cta-corner bl">С любовью</span>
+        <span class="cta-corner br">Для мамы</span>
+        <h2 class="cta-title">Готовьте с радостью<br>и <em>семейным теплом</em></h2>
+        <p class="cta-sub">Любой рецепт можно открыть в режиме готовки с интерактивным вычёркиванием ингредиентов, кухонным таймером и возможностью заглянуть в мамин почерк.</p>
+        <div class="cta-actions">
+          <button class="btn btn-primary" onclick="pickRandomDish()">
+            Случайное блюдо 🎲
+          </button>
+          <a class="btn btn-ghost" href="#catalog" onclick="filterCategory('liqueurs')">
+            Мамины наливки 🍷
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ФУТЕР -->
+<footer>
+  <div class="f-recno prox" id="footWord" data-reveal>
+    <span>М</span><span>А</span><span>М</span><span>И</span><span>Н</span><span>Ы</span>
+    <span style="width:20px"></span>
+    <span>Р</span><span>Е</span><span>Ц</span><span>Е</span><span>П</span><span>Т</span><span>Ы</span>
+  </div>
+  <div class="f-bottom">
+    <div class="f-links">
+      <a href="#catalog" onclick="filterCategory('mains')">Горячее</a>
+      <a href="#catalog" onclick="filterCategory('salads')">Салаты</a>
+      <a href="#catalog" onclick="filterCategory('snacks')">Закуски</a>
+      <a href="#catalog" onclick="filterCategory('bakery')">Выпечка</a>
+      <a href="#catalog" onclick="filterCategory('liqueurs')">Наливки</a>
+      <a href="#catalog" onclick="filterCategory('beauty')">Красота</a>
+    </div>
+    <div class="f-meta">
+      <span class="mono" id="clock">Соликамск (UTC+5) —:—</span>
+      <span class="mono">© Семейный кулинарный портал</span>
+    </div>
+  </div>
+</footer>
+
+<!-- МОДАЛЬНОЕ ОКНО ПРИГОТОВЛЕНИЯ -->
+<div class="modal-overlay" id="cookModal" onclick="closeModalOnBackdrop(event, 'cookModal')">
+  <div class="cook-modal" id="cookModalContent">
+    <button class="modal-close" onclick="closeCookModal()" aria-label="Закрыть">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <div class="cmodal-header">
+      <p class="cmodal-cat" id="mCat">Горячие блюда</p>
+      <h2 class="cmodal-title" id="mTitle">Название рецепта</h2>
+      <div class="cmodal-meta-row">
+        <span class="cmeta-item" id="mTime">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          40 мин
+        </span>
+        <span class="cmeta-item" id="mDifficulty">Сложность: Средне</span>
+        <span class="cmeta-item" id="mServings">Базово: 4 порции</span>
+      </div>
+    </div>
+
+    <!-- Интерактивный кухонный таймер -->
+    <div class="kitchen-timer" id="mTimerWrap">
+      <div class="timer-info">
+        <b>⏱ Кухонный таймер</b>
+        <span id="timerStatus">Готов к запуску</span>
+      </div>
+      <div class="timer-display" id="timerDisplay">00:00</div>
+      <div class="timer-controls">
+        <button class="tbtn tbtn-play" id="btnTimerToggle" onclick="toggleTimer()">Старт</button>
+        <button class="tbtn" onclick="addTimerSeconds(60)">+1 мин</button>
+        <button class="tbtn" onclick="addTimerSeconds(300)">+5 мин</button>
+        <button class="tbtn" onclick="resetTimer()">Сброс</button>
+      </div>
+    </div>
+
+    <!-- Ингредиенты с масштабированием и чекбоксами -->
+    <div class="cmodal-section">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:16px">
+        <h3 class="csec-title" style="margin-bottom:0">Ингредиенты (нажимайте, чтобы вычёркивать)</h3>
+        <div class="portion-scaler">
+          <span>Порции:</span>
+          <div class="portion-btns">
+            <button class="portion-btn" id="mPortion05" onclick="setModalPortionScale(0.5)">0.5x</button>
+            <button class="portion-btn active" id="mPortion1" onclick="setModalPortionScale(1)">1x</button>
+            <button class="portion-btn" id="mPortion2" onclick="setModalPortionScale(2)">2x</button>
+          </div>
+        </div>
+      </div>
+      <ul class="ingredients-checklist" id="mIngredientsList">
+        <!-- динамически -->
+      </ul>
+    </div>
+
+    <!-- Пошаговые инструкции -->
+    <div class="cmodal-section">
+      <h3 class="csec-title">Шаги приготовления</h3>
+      <div class="steps-list" id="mStepsList">
+        <!-- динамически -->
+      </div>
+    </div>
+
+    <!-- Мамин совет -->
+    <div class="cmodal-tip-box" id="mTipBox">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 1 1 7.072 0l-.548.547A3.374 3.374 0 0 0 14 18.469V19a2 2 0 1 1-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+      <div>
+        <p style="font-family:var(--font-m);font-size:11px;color:var(--warm);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px">Мамин кулинарный совет</p>
+        <p id="mTipText">Совет мамы</p>
+      </div>
+    </div>
+
+    <div class="cmodal-footer-actions">
+      <button class="btn btn-primary" id="mBtnViewPhoto" onclick="openPhotoFromModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        Мамин рукописный лист
+      </button>
+      <button class="btn btn-ghost" onclick="copyRecipeText()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Скопировать рецепт
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- МОДАЛКА ПРОСМОТРА ОРИГИНАЛЬНОГО РУКОПИСНОГО ЛИСТА -->
+<div class="modal-overlay" id="photoModal" onclick="closeModalOnBackdrop(event, 'photoModal')">
+  <div class="photo-modal-wrap">
+    <div class="pmodal-head">
+      <div>
+        <h3 id="pmTitle">Рукописный оригинал из маминого блокнота</h3>
+        <p id="pmSubtitle">Лист блокнота</p>
+      </div>
+      <button class="modal-close" onclick="closePhotoModal()" style="position:static" aria-label="Закрыть">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="pmodal-body" id="pmBody">
+      <img src="" alt="Мамин рукописный рецепт" id="pmImg" class="pmodal-img">
+    </div>
+    <div class="pmodal-controls">
+      <div class="mono" style="color:var(--mut);max-width:550px">
+        🔍 Исходный почерк мамы. Все заметки кредита ОТП банка и нерецептурные пометки отфильтрованы.
+      </div>
+      <div class="pzoom-btns">
+        <button class="pz-btn" onclick="zoomPhoto(1.2)">+ Увеличить</button>
+        <button class="pz-btn" onclick="zoomPhoto(0.8)">- Уменьшить</button>
+        <button class="pz-btn" onclick="zoomPhoto(0)">Сброс</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+const RECIPES_DATA = [{"id": "shurpa_kazan", "title": "Картошка с мясом в казане (Домашняя Шурпа)", "category": "mains", "categoryName": "Горячие блюда", "categoryIcon": "🍲", "time": "40 мин", "timerSeconds": 2400, "difficulty": "Средне", "photo": "assets/recipes/photo_2026-09-27_13-43-23.jpg", "photoName": "Лист 1 — Картошка с мясом", "servings": 4, "ingredients": [{"item": "Свинина (шейка или лопатка)", "amount": 1000, "unit": "г"}, {"item": "Картофель крупный", "amount": 6, "unit": "шт"}, {"item": "Лук репчатый", "amount": 2, "unit": "шт"}, {"item": "Морковь", "amount": 2, "unit": "шт"}, {"item": "Помидоры спелые", "amount": 3, "unit": "шт"}, {"item": "Болгарский сладкий перец", "amount": 2, "unit": "шт"}, {"item": "Чеснок", "amount": 5, "unit": "зубчиков"}, {"item": "Острый стручковый перец (чили)", "amount": 2, "unit": "шт целиком"}, {"item": "Растительное масло для жарки", "amount": 50, "unit": "мл"}, {"item": "Зира, кориандр, соль и черный перец", "amount": null, "unit": "по вкусу"}], "steps": ["В сильно разогретом казане или толстостенной утятнице раскалить масло и обжарить свинину крупными кусками до аппетитной золотистой корочки на сильном огне.", "Добавить нарезанный крупными полукольцами лук и брусочки моркови, пассеровать 7–10 минут до мягкости.", "Нарезать помидоры кусочками, сладкий перец широкими полосками, чеснок раздавить плоской стороной ножа. Добавить в казан вместе с зирой и кориандром.", "Очищенный картофель разрезать пополам или на 4 крупные части, уложить поверх мяса с овощами.", "Поверх выложить 2 целых стручка острого перца чили (важно не надрезать их, чтобы блюдо не получилось излишне жгучим, а лишь впитало благородный аромат).", "Залить крутым кипятком так, чтобы вода едва покрывала картофель, посолить, убавить огонь до минимума, плотно накрыть крышкой и томить ровно 40 минут до тающей мягкости."], "momTip": "Картофель режьте крупно — в казане он должен пропитаться мясными соками и специями, не развариваясь в кашу.", "tags": ["казан", "свинина", "картофель", "шурпа", "горячее", "сытно"]}, {"id": "mushrooms_roast", "title": "Шампиньоны в духовке в рукаве", "category": "mains", "categoryName": "Горячие блюда", "categoryIcon": "🍲", "time": "25 мин", "timerSeconds": 1500, "difficulty": "Очень просто", "photo": "assets/recipes/photo_2026-09-27_13-43-36.jpg", "photoName": "Лист 2 — Шампиньоны и булочки", "servings": 4, "ingredients": [{"item": "Шампиньоны свежие", "amount": 400, "unit": "г"}, {"item": "Соевый соус", "amount": 2, "unit": "ст. л."}, {"item": "Майонез", "amount": 2, "unit": "ст. л."}, {"item": "Чеснок", "amount": 3, "unit": "зубчика"}, {"item": "Растительное масло", "amount": 1, "unit": "ст. л."}, {"item": "Прованские травы или хмели-сунели", "amount": 1, "unit": "ч. л."}], "steps": ["Шампиньоны промыть и просушить бумажным полотенцем (небольшие грибы оставить целыми, крупные разрезать пополам).", "В миске смешать соевый соус, майонез, измельчённый через пресс чеснок, ложку растительного масла и пряные травы.", "Залить шампиньоны полученным соусом, тщательно перемешать и дать постоять 20–30 минут для пропитки.", "Переложить грибы вместе с соусом в рукав для запекания, плотно завязать края и сделать сверху 2–3 микропрокола зубочисткой.", "Запекать в духовке при 200°C ровно 25 минут. Подавать прямо в ароматном соку с укропом."], "momTip": "Рукав сохраняет всю сочность грибов — соус получается такой вкусный, что его идеально макать свежим хлебом!", "tags": ["грибы", "шампиньоны", "рукав", "духовка", "пост", "закуска"]}, {"id": "homemade_buns", "title": "Домашние булочки с ароматной заливкой", "category": "bakery", "categoryName": "Выпечка", "categoryIcon": "🥐", "time": "25 мин", "timerSeconds": 1500, "difficulty": "С душой", "photo": "assets/recipes/photo_2026-09-27_13-43-36.jpg", "photoName": "Лист 2 — Шампиньоны и булочки", "servings": 6, "ingredients": [{"item": "Молоко теплое", "amount": 200, "unit": "мл"}, {"item": "Вода теплая", "amount": 100, "unit": "мл"}, {"item": "Масло растительное или сливочное", "amount": 125, "unit": "мл"}, {"item": "Сухие дрожжи (или 25г свежих)", "amount": 1, "unit": "ст. л."}, {"item": "Сахар", "amount": 2, "unit": "ст. л."}, {"item": "Соль", "amount": 1, "unit": "ч. л."}, {"item": "Мука пшеничная высший сорт", "amount": 4, "unit": "стакана"}, {"item": "Греческий густой йогурт (для заливки)", "amount": 3, "unit": "ст. л."}, {"item": "Растительное масло (в заливку)", "amount": 0.5, "unit": "ч. л."}, {"item": "Тмин или кунжут", "amount": 1, "unit": "ч. л."}, {"item": "Яйцо для смазывания", "amount": 1, "unit": "шт"}], "steps": ["В тёплой смеси молока и воды растворить дрожжи и сахар. Оставить на 10 минут до появления живой пенной шапочки.", "Влить растопленное сливочное или растительное масло, добавить соль и, постепенно просеивая муку, замесить нежнейшее мягкое тесто.", "Накрыть миску салфеткой и поставить в тёплое место без сквозняков на 1 час, чтобы тесто увеличилось в 2–2.5 раза.", "Сформировать круглые аккуратные булочки, выложить на противень с пергаментом. Пальцами или рюмкой сделать в центре каждой булочки углубление.", "Смешать йогурт с маслом и тмином. Выложить по ложке заливки в каждое углубление, а бока булочек смазать взбитым яйцом.", "Выпекать в разогретой до 180°C духовке 20–25 минут до пышного румянца."], "momTip": "Йогуртовая заливка с тмином в углублении даёт невероятную мягкость сердцевинке и аппетитный контраст с золотистой корочкой.", "tags": ["выпечка", "дрожжевое тесто", "булочки", "к чаю", "домашнее"]}, {"id": "salad_korean_chicken", "title": "Салат «Корейская курочка» с солёным огурцом", "category": "salads", "categoryName": "Салаты", "categoryIcon": "🥗", "time": "15 мин", "timerSeconds": 900, "difficulty": "Легко", "photo": "assets/recipes/photo_2026-09-27_13-43-42.jpg", "photoName": "Лист 3 — 4 салата с корейской морковью", "servings": 4, "ingredients": [{"item": "Корейская морковь", "amount": 200, "unit": "г"}, {"item": "Отварная куриная грудка", "amount": 300, "unit": "г"}, {"item": "Сыр полутвёрдый", "amount": 150, "unit": "г"}, {"item": "Солёные бочковые огурцы", "amount": 2, "unit": "шт"}, {"item": "Майонез", "amount": 3, "unit": "ст. л."}, {"item": "Чеснок", "amount": 1, "unit": "зубчик"}], "steps": ["Отварное куриное филе разобрать пальцами на волокна или нарезать брусочками.", "Солёные огурцы нарезать аккуратной соломкой, сыр натереть на крупной тёрке.", "Корейскую морковь слегка укоротить ножницами, чтобы салат было удобно накладывать.", "Соединить мясо, огурчики, сыр и морковь, добавить измельчённый зубчик чеснока.", "Заправить майонезом и оставить на 15 минут пропитаться перед подачей."], "momTip": "Солёные огурчики придают сочность и пикантную кислинку, прекрасно балансируя остроту моркови.", "tags": ["салат", "корейская морковь", "курица", "сыр", "огурцы"]}, {"id": "salad_korean_smoked", "title": "Салат с копчёным окороком и кукурузой", "category": "salads", "categoryName": "Салаты", "categoryIcon": "🥗", "time": "10 мин", "timerSeconds": 600, "difficulty": "Очень просто", "photo": "assets/recipes/photo_2026-09-27_13-43-42.jpg", "photoName": "Лист 3 — 4 салата с корейской морковью", "servings": 4, "ingredients": [{"item": "Корейская морковь", "amount": 200, "unit": "г"}, {"item": "Копчёный куриный окорочок", "amount": 1, "unit": "шт"}, {"item": "Кукуруза сладкая консервированная", "amount": 200, "unit": "г"}, {"item": "Сухарики чесночные хрустящие", "amount": 60, "unit": "г"}, {"item": "Майонез", "amount": 2, "unit": "ст. л."}], "steps": ["С копчёного окорочка снять кожицу, отделить мясо от костей и нарезать тонкой соломкой.", "С кукурузы слить рассол.", "В салатнике смешать корейскую морковь, нарезанное копчёное мясо и кукурузу.", "Заправить лёгким майонезом и перемешать.", "Чесночные сухарики всыпать прямо перед подачей на стол, чтобы они аппетитно звонко хрустели!"], "momTip": "Никогда не добавляйте сухарики заранее — только в самую последнюю минуту, чтобы они не размокли.", "tags": ["салат", "копчёная курица", "кукуруза", "сухарики", "быстро"]}, {"id": "salad_korean_crab", "title": "Салат «Острый краб» с корейской морковью", "category": "salads", "categoryName": "Салаты", "categoryIcon": "🥗", "time": "10 мин", "timerSeconds": 600, "difficulty": "Легко", "photo": "assets/recipes/photo_2026-09-27_13-43-42.jpg", "photoName": "Лист 3 — 4 салата с корейской морковью", "servings": 4, "ingredients": [{"item": "Корейская морковь", "amount": 200, "unit": "г"}, {"item": "Крабовые палочки сочные", "amount": 200, "unit": "г"}, {"item": "Яйца варёные", "amount": 3, "unit": "шт"}, {"item": "Сыр полутвёрдый", "amount": 100, "unit": "г"}, {"item": "Свежая зелень укропа", "amount": 0.5, "unit": "пучка"}, {"item": "Майонез", "amount": 2, "unit": "ст. л."}], "steps": ["Крабовые палочки нарезать наискосок соломкой.", "Отварные яйца и сыр натереть на крупной тёрке.", "Соединить в миске крабовые палочки, яйца, тёртый сыр, корейскую морковь и мелко рубленую зелень.", "Заправить майонезом и аккуратно перемешать двумя вилочками."], "momTip": "Крабовые палочки выбирайте охлаждённые и сочные — они придают салату приятную нежную сладость.", "tags": ["салат", "крабовые палочки", "яйца", "сыр", "праздничный"]}, {"id": "salad_korean_crepe", "title": "Лёгкий салат с яичными блинчиками и огурцом", "category": "salads", "categoryName": "Салаты", "categoryIcon": "🥗", "time": "15 мин", "timerSeconds": 900, "difficulty": "Легко", "photo": "assets/recipes/photo_2026-09-27_13-43-42.jpg", "photoName": "Лист 3 — 4 салата с корейской морковью", "servings": 4, "ingredients": [{"item": "Корейская морковь", "amount": 200, "unit": "г"}, {"item": "Куриное филе отварное", "amount": 200, "unit": "г"}, {"item": "Свежие хрустящие огурцы", "amount": 2, "unit": "шт"}, {"item": "Яйца куриные (для блинчиков)", "amount": 2, "unit": "шт"}, {"item": "Соевый соус", "amount": 1, "unit": "ст. л."}, {"item": "Растительное масло", "amount": 1, "unit": "ст. л."}, {"item": "Щепотка соли", "amount": null, "unit": "по вкусу"}], "steps": ["Яйца взбить со щепоткой соли и выпечь на сковороде два тоненьких яичных блинчика. Остудить и нарезать длинной тонкой лапшой.", "Отварное куриное филе и свежие огурцы нарезать аккуратной соломкой.", "Смешать корейскую морковь, курицу, соломку огурца и яичную лапшу.", "Сбрызнуть смесью ароматного соевого соуса и душистого масла, легко перемешать."], "momTip": "Яичные блинчики в салате гораздо нежнее варёных яиц и придают ресторанный вид.", "tags": ["салат", "огурцы", "яичные блинчики", "лёгкий", "свежий"]}, {"id": "radish_snack", "title": "Острая закуска из тёртого редиса с сыром и яйцом", "category": "snacks", "categoryName": "Закуски", "categoryIcon": "🥖", "time": "10 мин", "timerSeconds": 600, "difficulty": "Очень просто", "photo": "assets/recipes/photo_2026-09-27_13-43-46.jpg", "photoName": "Лист 4 — Закуска из редиски", "servings": 4, "ingredients": [{"item": "Свежий редис", "amount": 100, "unit": "г"}, {"item": "Яйца куриные отварные", "amount": 2, "unit": "шт"}, {"item": "Сыр полутвёрдый", "amount": 50, "unit": "г"}, {"item": "Чеснок", "amount": 1, "unit": "зубчик"}, {"item": "Укроп и зелёный лук", "amount": 0.5, "unit": "пучка"}, {"item": "Майонез или густая сметана", "amount": 2, "unit": "ст. л."}, {"item": "Соль и свежемолотый чёрный перец", "amount": null, "unit": "по вкусу"}], "steps": ["Редис вымыть, обсушить и натереть на крупной тёрке.", "Яйца и сыр натереть на мелкой тёрке.", "Чеснок пропустить через пресс, свежую зелень мелко порубить.", "Соединить все ингредиенты, заправить сметаной или майонезом, посолить и поперчить.", "Подавать как пикантную намазку на хрустящие ржаные тосты или освежающий гарнир к шашлыку и жареному мясу."], "momTip": "Редис натирайте перед самой подачей, чтобы он сохранил звонкий хруст и не пустил слишком много сока.", "tags": ["закуска", "редис", "сыр", "яйца", "намазка", "весна"]}, {"id": "irga_cherry_liqueur", "title": "Пикантная наливка из ирги с вишнёвым листом", "category": "liqueurs", "categoryName": "Домашние наливки", "categoryIcon": "🍷", "time": "16 недель выдержки", "timerSeconds": 0, "difficulty": "Терпение мастера", "photo": "assets/recipes/photo_2026-09-27_13-43-50.jpg", "photoName": "Лист 5 — Наливка из ирги с вишнёвым листом", "servings": 12, "ingredients": [{"item": "Спелые ягоды ирги", "amount": 1000, "unit": "г"}, {"item": "Свежие вишнёвые листья", "amount": 300, "unit": "шт"}, {"item": "Чистый пищевой спирт (70%)", "amount": 1000, "unit": "мл"}, {"item": "Чистая родниковая вода", "amount": 500, "unit": "мл"}, {"item": "Сахар", "amount": 400, "unit": "г"}, {"item": "Натуральный цветочный мёд", "amount": 100, "unit": "г"}, {"item": "Лимоны (сок и цедра)", "amount": 2, "unit": "шт"}, {"item": "Пряная гвоздика", "amount": 4, "unit": "бутона"}], "steps": ["Вишнёвые листья промыть, залить 500 мл воды, всыпать сахар и проварить на тихом огне 15 минут. Остудить до комнатной температуры.", "Иргу слегка размять деревянной толкушкой, чтобы ягоды лопнули и отдали сок.", "Сложить ягоды в трёхлитровую банку, залить вишнёвым сиропом и влить 1 литр чистого спирта.", "Добавить мёд, сок и тонко срезанную цедру двух лимонов, а также бутоны гвоздики.", "Герметично закрыть крышкой и убрать в тёмный прохладный погреб на 16 недель (около 4 месяцев).", "Готовую наливку профильтровать через несколько слоев марли и разлить по тёмным бутылкам. Цвет — глубокий рубин, вкус — благородный бархат!"], "momTip": "Вишнёвый лист даёт наливке глубокий миндально-вишнёвый шлейф, как у старинных европейских ликёров.", "tags": ["наливка", "ирга", "вишнёвый лист", "напитки", "погреб", "секрет"]}, {"id": "irga_vanilla_liqueur", "title": "Пряная наливка из ирги с ванилью и имбирём", "category": "liqueurs", "categoryName": "Домашние наливки", "categoryIcon": "🍷", "time": "20 дней выдержки", "timerSeconds": 0, "difficulty": "Средне", "photo": "assets/recipes/photo_2026-09-27_13-43-53.jpg", "photoName": "Лист 6 — Пряная наливка из ирги", "servings": 12, "ingredients": [{"item": "Спелая ирга", "amount": 1000, "unit": "г"}, {"item": "Водка классическая 40%", "amount": 1000, "unit": "мл"}, {"item": "Спирт пищевой крепкий", "amount": 1000, "unit": "мл"}, {"item": "Сахар", "amount": 500, "unit": "г"}, {"item": "Стручок натуральной ванили", "amount": 1, "unit": "шт"}, {"item": "Коробочки кардамона", "amount": 3, "unit": "шт"}, {"item": "Сушёный корень имбиря", "amount": 3, "unit": "см"}], "steps": ["Ягоды перебрать, засыпать сахаром в большой стеклянной ёмкости.", "Стручок ванили расщепить вдоль, зёрна кардамона слегка надколоть, имбирь надломить на 2–3 части. Добавить пряности к ягодам.", "Залить смесью водки и спирта, тщательно перемешать до растворения сахара.", "Настаивать ровно 20 дней в тёмном тёплом шкафу, встряхивая банку каждые 2 дня.", "Процедить через ватно-марлевый фильтр и разлить по графинам."], "momTip": "Имбирь и кардамон дают согревающее пряное послевкусие — изумительно к зимнему праздничному столу.", "tags": ["наливка", "ирга", "ваниль", "имбирь", "пряности", "зима"]}, {"id": "french_meat", "title": "Мясо по-французски по-домашнему", "category": "mains", "categoryName": "Горячие блюда", "categoryIcon": "🍲", "time": "40 мин", "timerSeconds": 2400, "difficulty": "Классика", "photo": "assets/recipes/photo_2026-09-27_13-44-10.jpg", "photoName": "Лист 7 — Банкетное меню", "servings": 5, "ingredients": [{"item": "Свинина (корейка или карбонад)", "amount": 800, "unit": "г"}, {"item": "Сыр твёрдый российский", "amount": 250, "unit": "г"}, {"item": "Лук репчатый", "amount": 3, "unit": "шт"}, {"item": "Чеснок", "amount": 3, "unit": "зубчика"}, {"item": "Майонез «Провансаль»", "amount": 4, "unit": "ст. л."}, {"item": "Соль и черный молотый перец", "amount": null, "unit": "по вкусу"}, {"item": "Растительное масло для противня", "amount": 1, "unit": "ст. л."}], "steps": ["Мясо нарезать на стейки толщиной 1.5 см, хорошо отбить с двух сторон под плёнкой, посыпать солью и чёрным перцем.", "Противень смазать маслом и выложить мясные отбивные.", "Лук нарезать тонкими полукольцами и щедро покрыть каждый кусочек мяса плотной подушкой.", "Сыр натереть на крупной тёрке, смешать с измельчённым чесноком и майонезом, распределить красивой шапочкой поверх лука.", "Запекать в духовке при 190°C 35–40 минут до образования румяной сырной корочки."], "momTip": "Смешивайте сыр с майонезом и чесноком заранее — сыр не засохнет коркой, а останется нежным и кремовым!", "tags": ["свинина", "мясо", "сыр", "духовка", "праздник", "сытно"]}, {"id": "salad_russian_beauty", "title": "Салат «Русская красавица» порционный", "category": "salads", "categoryName": "Салаты", "categoryIcon": "🥗", "time": "20 мин", "timerSeconds": 1200, "difficulty": "Празднично", "photo": "assets/recipes/photo_2026-09-27_13-44-10.jpg", "photoName": "Лист 7 — Банкетное меню", "servings": 4, "ingredients": [{"item": "Куриное филе отварное", "amount": 300, "unit": "г"}, {"item": "Ветчина сочная", "amount": 200, "unit": "г"}, {"item": "Яйца варёные", "amount": 4, "unit": "шт"}, {"item": "Помидоры свежие плотные", "amount": 2, "unit": "шт"}, {"item": "Сыр российский", "amount": 150, "unit": "г"}, {"item": "Майонез", "amount": 4, "unit": "ст. л."}, {"item": "Свежая петрушка", "amount": 0.5, "unit": "пучка"}], "steps": ["Курицу нарезать небольшими кубиками, ветчину — тонкой соломкой.", "Яйца и сыр натереть на тёрке. У томатов удалить жидкую сердцевинку, мякоть нарезать кубиками.", "Выложить слоями в салатник или порционные формочки: курица -> сеточка майонеза -> ветчина -> яйца -> майонез -> помидоры -> пышный слой сыра.", "Украсить веточками петрушки и охладить 30 минут перед подачей."], "momTip": "Обязательно убирайте сок из помидоров, иначе салат «поплывёт».", "tags": ["салат", "слоёный", "курица", "ветчина", "помидоры", "сыр"]}, {"id": "salad_winter_olivier", "title": "Салат «Зимний» классический (Мамин Оливье)", "category": "salads", "categoryName": "Салаты", "categoryIcon": "🥗", "time": "25 мин", "timerSeconds": 1500, "difficulty": "Традиция", "photo": "assets/recipes/photo_2026-09-27_13-44-10.jpg", "photoName": "Лист 7 — Банкетное меню", "servings": 6, "ingredients": [{"item": "Картофель отварной", "amount": 4, "unit": "шт"}, {"item": "Морковь отварная", "amount": 2, "unit": "шт"}, {"item": "Яйца куриные отварные", "amount": 4, "unit": "шт"}, {"item": "Варёная колбаса (Докторская)", "amount": 300, "unit": "г"}, {"item": "Солёные бочковые огурцы", "amount": 3, "unit": "шт"}, {"item": "Зелёный горошек консервированный", "amount": 1, "unit": "банка"}, {"item": "Зелёный лук свежий", "amount": 1, "unit": "пучок"}, {"item": "Майонез «Провансаль»", "amount": 4, "unit": "ст. л."}], "steps": ["Отварить картофель, морковь и яйца, остудить до полного остывания и очистить.", "Нарезать все ингредиенты аккуратным одинаковым кубиком размером с горошину.", "С горошка слить всю жидкость, зеленый лук мелко порубить.", "Соединить всё в праздничной салатнице, заправить майонезом и аккуратно перемешать."], "momTip": "Секрет идеального Оливье — все ингредиенты должны быть нарезаны одинаковым ровным кубиком.", "tags": ["салат", "оливье", "зимний", "колбаса", "горошек", "новый год"]}, {"id": "salad_smoked_cabbage", "title": "Салат с копчёной курицей, пекинской капустой и сухариками", "category": "salads", "categoryName": "Салаты", "categoryIcon": "🥗", "time": "15 мин", "timerSeconds": 900, "difficulty": "Легко", "photo": "assets/recipes/photo_2026-09-27_13-44-10.jpg", "photoName": "Лист 7 — Банкетное меню", "servings": 4, "ingredients": [{"item": "Пекинская капуста", "amount": 300, "unit": "г"}, {"item": "Копчёная курица (филе или окорок)", "amount": 250, "unit": "г"}, {"item": "Горошек консервированный", "amount": 150, "unit": "г"}, {"item": "Помидоры свежие", "amount": 2, "unit": "шт"}, {"item": "Свежая зелень укропа", "amount": 0.5, "unit": "пучка"}, {"item": "Хрустящие сухарики", "amount": 60, "unit": "г"}, {"item": "Майонез", "amount": 3, "unit": "ст. л."}], "steps": ["Пекинскую капусту тонко нашинковать, срезав толстые белые основания.", "Копчёную курицу и помидоры нарезать соломкой, зелень измельчить.", "Смешать капусту, курицу, помидоры, зеленый горошек и зелень с майонезом.", "Сверху щедро посыпать сухариками перед самым выходом к столу."], "momTip": "Пекинская капуста делает салат необыкновенно воздушным и сочным.", "tags": ["салат", "копчёная курица", "пекинская капуста", "помидоры", "хруст"]}, {"id": "salad_layered_mushrooms", "title": "Слоёный салат с жареными грибами и мясом", "category": "salads", "categoryName": "Салаты", "categoryIcon": "🥗", "time": "30 мин", "timerSeconds": 1800, "difficulty": "Празднично", "photo": "assets/recipes/photo_2026-09-27_13-44-10.jpg", "photoName": "Лист 7 — Банкетное меню", "servings": 5, "ingredients": [{"item": "Шампиньоны или лесные грибы", "amount": 350, "unit": "г"}, {"item": "Лук репчатый", "amount": 2, "unit": "шт"}, {"item": "Отварное мясо (говядина или свинина)", "amount": 300, "unit": "г"}, {"item": "Картофель отварной", "amount": 3, "unit": "шт"}, {"item": "Морковь отварная", "amount": 2, "unit": "шт"}, {"item": "Сыр твёрдый", "amount": 120, "unit": "г"}, {"item": "Сливочное масло для жарки", "amount": 25, "unit": "г"}, {"item": "Майонез", "amount": 4, "unit": "ст. л."}], "steps": ["Грибы нарезать пластинками и обжарить с мелко нарезанным луком на сливочном масле до золотистости. Остудить.", "Мясо разобрать на волокна или мелко порубить ножом. Картофель, морковь и сыр натереть на крупной тёрке.", "Собрать слоями: 1-й слой — тертый картофель + майонез; 2-й слой — мясо + майонез; 3-й слой — жареные грибы с луком; 4-й слой — варёная морковь + майонез; 5-й слой — шапка сыра.", "Дать пропитаться в холодильнике 1.5–2 часа."], "momTip": "Сливочное масло при жарке грибов с луком даёт потрясающий бархатный аромат всему салату.", "tags": ["салат", "слоёный", "жареные грибы", "мясо", "сыр", "банкет"]}, {"id": "salad_fruit_walnut", "title": "Фруктовый десертный салат с грецким орехом", "category": "salads", "categoryName": "Салаты", "categoryIcon": "🥗", "time": "10 мин", "timerSeconds": 600, "difficulty": "Сладко и легко", "photo": "assets/recipes/photo_2026-09-27_13-44-10.jpg", "photoName": "Лист 7 — Банкетное меню", "servings": 4, "ingredients": [{"item": "Яблоко сладкое", "amount": 1, "unit": "шт"}, {"item": "Груша сочная", "amount": 1, "unit": "шт"}, {"item": "Персики или абрикосы", "amount": 2, "unit": "шт"}, {"item": "Виноград без косточек (кишмиш)", "amount": 150, "unit": "г"}, {"item": "Слива спелая", "amount": 3, "unit": "шт"}, {"item": "Ядра грецких орехов", "amount": 50, "unit": "г"}, {"item": "Сахарная пудра", "amount": 1, "unit": "ст. л."}, {"item": "Натуральный густой йогурт", "amount": 150, "unit": "г"}], "steps": ["Фрукты вымыть, освободить от косточек и сердцевины, нарезать дольками одинакового размера.", "Орехи слегка прокалить на сухой сковороде 2 минуты и порубить ножом.", "Выложить фруктовое ассорти в вазочки, полить йогуртом, посыпать орехами и просеять щепотку сахарной пудры."], "momTip": "Идеальный лёгкий праздничный десерт, который любят и взрослые, и дети.", "tags": ["десерт", "фрукты", "орехи", "йогурт", "полезно", "сладкое"]}, {"id": "tartlets_salmon", "title": "Закусочные тарталетки с красной рыбой и сыром", "category": "snacks", "categoryName": "Закуски", "categoryIcon": "🥖", "time": "15 мин", "timerSeconds": 900, "difficulty": "Изысканно", "photo": "assets/recipes/photo_2026-09-27_13-44-10.jpg", "photoName": "Лист 7 — Банкетное меню", "servings": 6, "ingredients": [{"item": "Песочные тарталетки", "amount": 12, "unit": "шт"}, {"item": "Слабосолёная сёмга или форель", "amount": 150, "unit": "г"}, {"item": "Творожный сливочный сыр", "amount": 150, "unit": "г"}, {"item": "Свежий огурец", "amount": 1, "unit": "шт"}, {"item": "Свежий укроп", "amount": 0.5, "unit": "пучка"}, {"item": "Лимонный сок", "amount": 1, "unit": "ч. л."}], "steps": ["Творожный сыр смешать с лимонным соком и мелко нарубленным укропом.", "Наполнить тарталетки сырным кремом из ложки или кондитерского мешка.", "Рыбу нарезать тонкими ломтиками и свернуть розочками, уложить на сыр.", "Добавить тонкий полукруг свежего огурца для свежести."], "momTip": "Тарталетки наполняйте за 1–2 часа до застолья, чтобы они сохранили песочную текстуру.", "tags": ["тарталетки", "красная рыба", "сёмга", "творожный сыр", "фуршет"]}, {"id": "lavash_rolls", "title": "Рулетики из тонкого лаваша с корейской морковью и ветчиной", "category": "snacks", "categoryName": "Закуски", "categoryIcon": "🥖", "time": "15 мин", "timerSeconds": 900, "difficulty": "Легко", "photo": "assets/recipes/photo_2026-09-27_13-44-10.jpg", "photoName": "Лист 7 — Банкетное меню", "servings": 6, "ingredients": [{"item": "Тонкий армянский лаваш", "amount": 2, "unit": "листа"}, {"item": "Плавленый или творожный сыр", "amount": 150, "unit": "г"}, {"item": "Ветчина сочная", "amount": 200, "unit": "г"}, {"item": "Корейская морковь", "amount": 150, "unit": "г"}, {"item": "Свежая зелень петрушки", "amount": 0.5, "unit": "пучка"}], "steps": ["Лист лаваша разложить на столе и тонко промазать мягким сыром.", "Выложить ломтики ветчины, распределить корейскую морковь и посыпать зеленью.", "Свернуть в плотный аккуратный рулет, завернуть в плёнку и охладить в холодильнике 30 минут.", "Нарезать острым ножом наискосок на порционные роллы шириной 2.5 см."], "momTip": "Охлаждение рулета перед нарезкой обязательно — тогда он будет резаться ровно и не помнётся.", "tags": ["рулетики", "лаваш", "ветчина", "корейская морковь", "закуска"]}, {"id": "sprat_sandwiches", "title": "Бутерброды со шпротами на чесночных гренках", "category": "snacks", "categoryName": "Закуски", "categoryIcon": "🥖", "time": "15 мин", "timerSeconds": 900, "difficulty": "Душевно", "photo": "assets/recipes/photo_2026-09-27_13-44-10.jpg", "photoName": "Лист 7 — Банкетное меню", "servings": 4, "ingredients": [{"item": "Батон нарезной", "amount": 8, "unit": "ломтиков"}, {"item": "Шпроты в масле золотистые", "amount": 1, "unit": "банка"}, {"item": "Чеснок", "amount": 2, "unit": "зубчика"}, {"item": "Майонез", "amount": 2, "unit": "ст. л."}, {"item": "Солёные или маринованные огурцы", "amount": 2, "unit": "шт"}, {"item": "Свежая петрушка", "amount": 0.5, "unit": "пучка"}], "steps": ["Ломтики батона подсушить на сухой сковороде или в тостере до звонкого золотистого хруста.", "Горячие гренки с двух сторон щедро натереть срезанным зубчиком чеснока.", "Смазать тончайшим слоем майонеза, уложить по 1–2 золотистые рыбки.", "Рядом положить ломтик огурчика и листик свежей петрушки."], "momTip": "Чесноком натирайте только горячий хлеб — чесночные масла мгновенно проникают в поры мякиша.", "tags": ["бутерброды", "шпроты", "чеснок", "гренки", "застолье", "ностальгия"]}, {"id": "crispy_nuggets", "title": "Хрустящие наггетсы в панировке из чипсов", "category": "mains", "categoryName": "Горячие блюда", "categoryIcon": "🍲", "time": "18 мин", "timerSeconds": 1080, "difficulty": "Любимое детям", "photo": "assets/recipes/photo_2026-09-27_13-44-13.jpg", "photoName": "Лист 8 — Наггетсы и оладьи", "servings": 4, "ingredients": [{"item": "Куриное филе", "amount": 500, "unit": "г"}, {"item": "Картофельные чипсы (с сыром или солью)", "amount": 100, "unit": "г"}, {"item": "Мука пшеничная", "amount": 3, "unit": "ст. л."}, {"item": "Яйца куриные", "amount": 2, "unit": "шт"}, {"item": "Сладкая паприка", "amount": 1, "unit": "ч. л."}, {"item": "Соль и сушёный чеснок", "amount": null, "unit": "по вкусу"}], "steps": ["Чипсы поместить в пакет и прокатать скалкой в аппетитную хрустящую крошку крупного помола.", "Филе нарезать порционными кусочками, приправить солью, сухим чесноком и паприкой.", "Яйца взбить вилкой со щепоткой соли.", "Обвалять кусочки в муке, затем в яйце, затем обильно в панировке из чипсов.", "Выложить на пергамент и запекать в разогретой до 200°C духовке 15–18 минут (или обжарить на сковороде)."], "momTip": "Запекание в духовке делает наггетсы нежирными, а чипсы дают невероятный хруст без фритюра!", "tags": ["курица", "наггетсы", "чипсы", "хрустящее", "дети", "быстро"]}, {"id": "potato_pancakes_ham_cheese", "title": "Оладьи из тёртого картофеля с ветчиной и сыром", "category": "mains", "categoryName": "Горячие блюда", "categoryIcon": "🍲", "time": "20 мин", "timerSeconds": 1200, "difficulty": "Сытно", "photo": "assets/recipes/photo_2026-09-27_13-44-13.jpg", "photoName": "Лист 8 — Наггетсы и оладьи", "servings": 4, "ingredients": [{"item": "Картофель сырой крупный", "amount": 6, "unit": "шт"}, {"item": "Ветчина", "amount": 200, "unit": "г"}, {"item": "Сыр твёрдый", "amount": 200, "unit": "г"}, {"item": "Яйца куриные", "amount": 2, "unit": "шт"}, {"item": "Мука пшеничная", "amount": 4, "unit": "ст. л."}, {"item": "Свежий укроп", "amount": 1, "unit": "пучок"}, {"item": "Соль и черный молотый перец", "amount": null, "unit": "по вкусу"}, {"item": "Растительное масло для жарки", "amount": 50, "unit": "мл"}], "steps": ["Картофель очистить, натереть на крупной тёрке и слегка отжать руками от лишнего сока.", "Ветчину и сыр натереть на крупной тёрке.", "Соединить картофель, ветчину, сыр, вбить яйца, добавить рубленый укроп, муку, соль и перец. Перемешать.", "Выкладывать ложкой на горячую сковороду с маслом в форме оладий.", "Жарить под крышкой на среднем огне по 4–5 минут с каждой стороны до золотистой корочки и тянущегося сыра внутри."], "momTip": "Сыр внутри плавится и делает оладьи необычайно нежными — подавайте со сметаной!", "tags": ["драники", "картофель", "ветчина", "сыр", "завтрак", "горячее"]}, {"id": "pickled_peppers_24h", "title": "Маринованный болгарский перец за сутки", "category": "snacks", "categoryName": "Закуски", "categoryIcon": "🥖", "time": "24 часа маринования", "timerSeconds": 0, "difficulty": "Фирменный рецепт", "photo": "assets/recipes/photo_2026-09-27_13-44-18.jpg", "photoName": "Лист 9 — Маринованный перец", "servings": 8, "ingredients": [{"item": "Сладкий мясистый перец разноцветный", "amount": 800, "unit": "г"}, {"item": "Свежая петрушка и укроп", "amount": 1, "unit": "большой пучок"}, {"item": "Чеснок", "amount": 5, "unit": "зубчиков"}, {"item": "Острый стручковый перец", "amount": 0.5, "unit": "шт"}, {"item": "Чистая вода", "amount": 500, "unit": "мл"}, {"item": "Соль крупная", "amount": 1, "unit": "ст. л. с горкой"}, {"item": "Сахар", "amount": 1.5, "unit": "ст. л."}, {"item": "Растительное масло", "amount": 150, "unit": "мл"}, {"item": "Уксусная эссенция 70% (или 9% уксус 7 ст.л.)", "amount": 1, "unit": "ч. л."}], "steps": ["Перец очистить от семян и нарезать вдоль широкими аппетитными лепестками.", "Зелень нарубить, чеснок нарезать тонкими пластинками, острый перец — колечками.", "В сотейнике вскипятить воду с солью, сахаром и растительным маслом. Выключить огонь и влить уксусную эссенцию.", "В глубокую ёмкость выложить слоями перец, чеснок и зелень, залить горячим маринадом.", "Положить плоскую тарелку и груз (банку с водой). Оставить на 24 часа при комнатной температуре, затем переставить в холод."], "momTip": "Маринованный таким способом перец остаётся хрустящим и сочным — съедается моментально!", "tags": ["перец", "маринад", "закуска", "чеснок", "зелень", "заготовки"]}, {"id": "warm_salad_green_beans", "title": "Тёплый салат с курицей, перцем и стручковой фасолью", "category": "salads", "categoryName": "Салаты", "categoryIcon": "🥗", "time": "15 мин", "timerSeconds": 900, "difficulty": "Легко и полезно", "photo": "assets/recipes/photo_2026-09-27_13-44-23.jpg", "photoName": "Лист 10 — Тёплый салат и рулетики из кабачков", "servings": 4, "ingredients": [{"item": "Стручковая зелёная фасоль", "amount": 500, "unit": "г"}, {"item": "Куриное филе", "amount": 250, "unit": "г"}, {"item": "Болгарский сладкий перец", "amount": 1, "unit": "шт"}, {"item": "Красный лук", "amount": 1, "unit": "шт"}, {"item": "Горячая вода (в заправку)", "amount": 3, "unit": "ст. л."}, {"item": "Бальзамический уксус (или 50/50 с соевым)", "amount": 3, "unit": "ст. л."}, {"item": "Свежий укроп", "amount": 1, "unit": "пучок"}, {"item": "Оливковое масло", "amount": 2, "unit": "ст. л."}], "steps": ["Фасоль опустить в кипяток на 3–4 минуты, откинуть на дуршлаг и обдать ледяной водой (для яркости).", "Куриное филе нарезать соломкой и обжарить на оливковом масле до золотистости.", "Перец нарезать полосками, красный лук — полукольцами.", "Смешать тёплую воду, бальзамический уксус и измельчённый укроп.", "Соединить тёплую птицу, фасоль, свежий перец и лук, полить заправкой и перемешать."], "momTip": "Подавайте именно тёплым — бальзамик с укропом раскрывает потрясающий аромат на горячих овощах.", "tags": ["тёплый салат", "фасоль", "курица", "бальзамик", "пп", "диета"]}, {"id": "zucchini_chicken_rolls", "title": "Рулетики из кабачков с курицей, сыром и базиликом", "category": "mains", "categoryName": "Горячие блюда", "categoryIcon": "🍲", "time": "25 мин", "timerSeconds": 1500, "difficulty": "Элегантно", "photo": "assets/recipes/photo_2026-09-27_13-44-23.jpg", "photoName": "Лист 10 — Тёплый салат и рулетики из кабачков", "servings": 4, "ingredients": [{"item": "Молодые кабачки", "amount": 2, "unit": "шт"}, {"item": "Куриное филе", "amount": 350, "unit": "г"}, {"item": "Сыр твёрдый", "amount": 120, "unit": "г"}, {"item": "Чеснок", "amount": 2, "unit": "зубчика"}, {"item": "Базилик сушёный или свежий", "amount": 1, "unit": "ч. л."}, {"item": "Оливковое масло", "amount": 1, "unit": "ст. л."}, {"item": "Соль и чёрный перец", "amount": null, "unit": "по вкусу"}], "steps": ["Кабачки нарезать вдоль пластинами по 5 мм, подпечь в духовке 5–7 минут при 180°C до гибкости.", "Филе тонко отбить, посыпать солью, перцем, чесноком и базиликом.", "На полоску кабачка выложить полоску курицы, посыпать тёртым сыром и плотно свернуть рулетом.", "Скрепить зубочисткой, выложить в форму и запекать 25 минут при 180°C."], "momTip": "Кабачки отдают сок курочке — мясо получается тающим, сочным и ароматным.", "tags": ["кабачки", "рулетики", "курица", "базилик", "духовка", "легко"]}, {"id": "salmorejo_soup", "title": "Холодный томатный суп «Сальморехо»", "category": "soups", "categoryName": "Супы", "categoryIcon": "🥣", "time": "15 мин (+1 час в холод)", "timerSeconds": 900, "difficulty": "Свежесть", "photo": "assets/recipes/photo_2026-09-27_13-44-26.jpg", "photoName": "Лист 11 — Сальморехо и оладушки", "servings": 4, "ingredients": [{"item": "Спелые помидоры", "amount": 500, "unit": "г"}, {"item": "Белый хлеб или багет без корки", "amount": 50, "unit": "г"}, {"item": "Чеснок", "amount": 1, "unit": "зубчик"}, {"item": "Винный уксус", "amount": 1.5, "unit": "ст. л."}, {"item": "Оливковое масло Extra Virgin", "amount": 3, "unit": "ст. л."}, {"item": "Соль", "amount": 0.5, "unit": "ч. л."}, {"item": "Варёное яйцо и ломтики ветчины (для подачи)", "amount": 1, "unit": "шт"}], "steps": ["Помидоры ошпарить кипятком и легко снять кожицу.", "Хлеб замочить в воде на 1 минуту и отжать.", "В чашу блендера поместить томаты, хлеб, чеснок, соль и уксус. Взбить до гладкости.", "Продолжая взбивать, тонкой струйкой влить оливковое масло до кремовой текстуры.", "Охладить в холодильнике 1 час. Подавать с рубленым яйцом и ломтиками вяленой ветчины."], "momTip": "Масло вливайте тонкой струйкой при работающем блендере — суп эмульгирует в шелковый мусс.", "tags": ["суп", "сальморехо", "томаты", "холодный суп", "лето", "испания"]}, {"id": "fluffy_kefir_pancakes", "title": "Воздушные оладушки на тёплом кефире", "category": "bakery", "categoryName": "Выпечка", "categoryIcon": "🥐", "time": "15 мин", "timerSeconds": 900, "difficulty": "Мамин секрет", "photo": "assets/recipes/photo_2026-09-27_13-44-26.jpg", "photoName": "Лист 11 — Сальморехо и оладушки", "servings": 4, "ingredients": [{"item": "Кефир (2.5-3.2%) обязательно тёплый", "amount": 500, "unit": "мл"}, {"item": "Мука пшеничная", "amount": 3, "unit": "стакана"}, {"item": "Яйцо куриное", "amount": 1, "unit": "шт"}, {"item": "Сахар", "amount": 2.5, "unit": "ст. л."}, {"item": "Сода пищевая", "amount": 1, "unit": "ч. л. без верха"}, {"item": "Соль щепотка", "amount": null, "unit": "по вкусу"}, {"item": "Растительное масло для жарки", "amount": 50, "unit": "мл"}], "steps": ["Кефир подогреть в ковшике до ощутимо тёплого состояния (не кипятить!).", "Яйцо взбить с сахаром и солью, влить тёплый кефир.", "Просеять муку вместе с содой и замесить густое тесто.", "ГЛАВНЫЙ СЕКРЕТ: после замеса тесто БОЛЬШЕ НЕ ПЕРЕМЕШИВАТЬ! Дать постоять 15 минут.", "Брать ложкой осторожно с краю миски и выкладывать на горячую сковороду с маслом.", "Жарить под крышкой на среднем огне с двух сторон. Оладьи вырастают пышными, как пуховые пончики!"], "momTip": "Если перемешать тесто после того, как сода вступила в реакцию с кефиром, оладьи осядут. Не трогайте его, и они будут пышными весь день!", "tags": ["оладьи", "кефир", "завтрак", "пышные", "к чаю", "мамин секрет"]}, {"id": "cabbage_cutlets_milk", "title": "Капустные котлеты, тушёные в молоке (Способ 1)", "category": "mains", "categoryName": "Горячие блюда", "categoryIcon": "🍲", "time": "30 мин", "timerSeconds": 1800, "difficulty": "Нежно", "photo": "assets/recipes/photo_2026-09-27_13-44-30.jpg", "photoName": "Лист 12 — Капустные котлеты", "servings": 5, "ingredients": [{"item": "Капуста белокочанная", "amount": 1500, "unit": "г"}, {"item": "Молоко", "amount": 200, "unit": "мл"}, {"item": "Сливочное масло", "amount": 30, "unit": "г"}, {"item": "Лук репчатый", "amount": 2, "unit": "шт"}, {"item": "Манная крупа", "amount": 3, "unit": "ст. л."}, {"item": "Яйца куриные", "amount": 2, "unit": "шт"}, {"item": "Мука", "amount": 5, "unit": "ст. л."}, {"item": "Панировочные сухари", "amount": 100, "unit": "г"}], "steps": ["Капусту тонко нашинковать, лук измельчить. Сложить в сотейник, влить молоко, добавить сливочное масло и тушить 15 минут.", "Тонкой струйкой всыпать манку, постоянно помешивая, варить 5 минут до загустения.", "Остудить массу. Добавить яйца, муку, соль и перец. Замесить фарш.", "Сформировать котлеты, обвалять в сухарях и обжарить до румянца на сковороде."], "momTip": "Тушение в молоке полностью убирает капустную резкость — котлетки получаются сливочно-сладкими.", "tags": ["капуста", "котлеты", "молоко", "манка", "нежно", "овощи"]}, {"id": "cabbage_cutlets_veggie", "title": "Овощные капустные котлеты с пассеровкой (Способ 2)", "category": "mains", "categoryName": "Горячие блюда", "categoryIcon": "🍲", "time": "25 мин", "timerSeconds": 1500, "difficulty": "Ароматно", "photo": "assets/recipes/photo_2026-09-27_13-44-30.jpg", "photoName": "Лист 12 — Капустные котлеты", "servings": 4, "ingredients": [{"item": "Капуста белокочанная", "amount": 1000, "unit": "г"}, {"item": "Морковь", "amount": 1, "unit": "шт"}, {"item": "Лук репчатый", "amount": 2, "unit": "шт"}, {"item": "Чеснок", "amount": 2, "unit": "зубчика"}, {"item": "Яйца куриные", "amount": 2, "unit": "шт"}, {"item": "Манная крупа", "amount": 3, "unit": "ст. л."}, {"item": "Свежий укроп", "amount": 1, "unit": "пучок"}], "steps": ["Капусту отварить в подсоленной воде 7–8 минут, отжать в дуршлаге.", "Лук и морковь спассерувать на сковороде с каплей масла и измельчённым чесноком.", "Соединить капусту с пассеровкой, яйцами, рубленым укропом и манкой. Дать постоять 10 минут.", "Сформировать аккуратные котлетки и обжарить на сковороде до аппетитной корочки."], "momTip": "Чеснок и морковь в пассеровке дают котлетам сочный золотистый цвет и аппетитный дух.", "tags": ["капуста", "морковь", "чеснок", "укроп", "котлеты", "постно"]}, {"id": "azu_tatarian", "title": "Настоящее Азу по-татарски в горшочке или казане", "category": "mains", "categoryName": "Горячие блюда", "categoryIcon": "🍲", "time": "50 мин", "timerSeconds": 3000, "difficulty": "Шедевр", "photo": "assets/recipes/photo_2026-09-27_13-44-34.jpg", "photoName": "Лист 13 — Азу по-татарски", "servings": 4, "ingredients": [{"item": "Говядина мякоть", "amount": 600, "unit": "г"}, {"item": "Картофель соломкой", "amount": 600, "unit": "г"}, {"item": "Солёные бочковые огурцы", "amount": 200, "unit": "г"}, {"item": "Морковь", "amount": 200, "unit": "г"}, {"item": "Помидоры свежие", "amount": 300, "unit": "г"}, {"item": "Томатная паста", "amount": 2, "unit": "ст. л."}, {"item": "Лук репчатый", "amount": 2, "unit": "шт"}, {"item": "Чеснок", "amount": 4, "unit": "зубчика"}, {"item": "Бульон мясной", "amount": 250, "unit": "мл"}, {"item": "Сушёный базилик, лавровый лист, соль, перец", "amount": null, "unit": "по вкусу"}], "steps": ["Говядину нарезать брусочками поперек волокон, обжарить в казане на сильном огне до золотистой корочки.", "Добавить лук и морковь соломкой, обжарить 8 минут, ввести томатную пасту и рубленые помидоры. Тушить 30 минут.", "Картофель нарезать крупной соломкой и отдельно обжарить на сковороде до полуготовности.", "Огурцы очистить от кожицы, нарезать соломкой и припустить в ковшике с парой ложек бульона 10 минут.", "Сложить всё в горшочек или казан: мясо с подливой, огурчики, картофель, чеснок, базилик и лавровый лист. Залить бульоном.", "Томить под крышкой 20–25 минут. Подавать с посыпкой из кинзы или укропа."], "momTip": "Огурцы обязательно припускайте отдельно и очищайте от кожицы — тогда они отдадут нужную кислинку соусу, не будучи жёсткими.", "tags": ["азу", "говядина", "солёные огурцы", "картофель", "казан", "сытно"]}, {"id": "beauty_curd_mask", "title": "Творожная омолаживающая маска для лица", "category": "beauty", "categoryName": "Секреты красоты", "categoryIcon": "🌸", "time": "20 мин", "timerSeconds": 1200, "difficulty": "Натурально", "photo": "assets/recipes/photo_2026-09-27_13-44-37.jpg", "photoName": "Лист 14 — Мамины секреты красоты", "servings": 1, "ingredients": [{"item": "Домашний жирный творог", "amount": 2, "unit": "ст. л."}, {"item": "Натуральный мёд", "amount": 1, "unit": "ч. л."}, {"item": "Яичный желток", "amount": 1, "unit": "шт"}], "steps": ["Творог тщательно растереть с желтком и мёдом до однородной кремовой консистенции.", "Нанести плотным слоем на очищенное лицо и зону декольте.", "Оставить на 20 минут в состоянии покоя.", "Смыть тёплой водой. Кожа становится напитанной, бархатной и подтянутой."], "momTip": "Делайте маску раз в неделю — творог даёт молочную кислоту для сияния, а мёд с желтком питают кожу.", "tags": ["красота", "маска для лица", "творог", "мёд", "уход", "молодость"]}, {"id": "beauty_herbal_lotion", "title": "Успокаивающий фито-лосьон из ромашки и календулы", "category": "beauty", "categoryName": "Секреты красоты", "categoryIcon": "🌸", "time": "Настоять 1 час", "timerSeconds": 0, "difficulty": "Просто", "photo": "assets/recipes/photo_2026-09-27_13-44-37.jpg", "photoName": "Лист 14 — Мамины секреты красоты", "servings": 1, "ingredients": [{"item": "Цветки ромашки сухие", "amount": 1, "unit": "ст. л."}, {"item": "Цветки календулы сухие", "amount": 1, "unit": "ст. л."}, {"item": "Крутой кипяток", "amount": 200, "unit": "мл"}], "steps": ["Травы засыпать в термос или стеклянную баночку, залить 200 мл кипятка.", "Накрыть крышкой и настоять 1 час.", "Процедить через марлю и хранить во флаконе в холодильнике до 5 дней.", "Протирать лицо утром и вечером ватным диском — снимает покраснения, тонизирует и выравнивает цвет лица."], "momTip": "Можно заморозить этот настой кубиками льда и по утрам протирать лицо для потрясающего тонуса!", "tags": ["лосьон", "ромашка", "календула", "травы", "тонус", "уход"]}, {"id": "beauty_soda_peeling", "title": "Мягкий очищающий пилинг с содой и йогуртом", "category": "beauty", "categoryName": "Секреты красоты", "categoryIcon": "🌸", "time": "5 мин", "timerSeconds": 300, "difficulty": "Экспресс", "photo": "assets/recipes/photo_2026-09-27_13-44-37.jpg", "photoName": "Лист 14 — Мамины секреты красоты", "servings": 1, "ingredients": [{"item": "Пищевая сода", "amount": 1, "unit": "ч. л."}, {"item": "Натуральный йогурт или кефир", "amount": 2, "unit": "ст. л."}], "steps": ["Смешать соду со свежим йогуртом в небольшой пиале.", "Мягкими круговыми движениями нанести на Т-зону (нос, лоб, подбородок), избегая зоны вокруг глаз.", "Оставить на 3–5 минут, затем смыть прохладной водой.", "Поры деликатно очищаются без шелушения и сухости."], "momTip": "Йогурт нейтрализует щелочь, а мелкие гранулы соды действуют деликатнее любого магазинного скраба.", "tags": ["пилинг", "сода", "йогурт", "очищение", "поры", "уход"]}, {"id": "beauty_hand_elixir", "title": "Лимонно-глицериновый эликсир для бархатных рук", "category": "beauty", "categoryName": "Секреты красоты", "categoryIcon": "🌸", "time": "На ночь", "timerSeconds": 0, "difficulty": "Легко", "photo": "assets/recipes/photo_2026-09-27_13-44-37.jpg", "photoName": "Лист 14 — Мамины секреты красоты", "servings": 1, "ingredients": [{"item": "Аптечный глицерин", "amount": 50, "unit": "мл"}, {"item": "Свежевыжатый сок половины лимона", "amount": 0.5, "unit": "шт"}, {"item": "Кипячёная вода", "amount": 2, "unit": "ст. л."}], "steps": ["Во флакончике соединить глицерин, процеженный лимонный сок и воду.", "Хорошо взболтать до однородности.", "Нанести несколько капель на чистые руки перед сном, помассировать и надеть тонкие хлопковые перчатки.", "Утром руки идеально мягкие, трещинки от огородных работ затягиваются, а кожа светлеет."], "momTip": "Лимонный сок осветляет кожу и укрепляет ногти, а глицерин запирает влагу на всю ночь.", "tags": ["руки", "глицерин", "лимон", "уход для рук", "ночь", "мягкость"]}];
+
+(function(){
+'use strict';
+
+const $  = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const hasGsap = typeof gsap !== 'undefined';
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const finePointer = matchMedia('(hover:hover) and (pointer:fine)').matches;
+const anim = hasGsap && !reduced;
+if (hasGsap && window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+
+/* ============ СОСТОЯНИЕ ============ */
+let activeCategory = 'all';
+let currentSearch = '';
+let currentPortionScale = 1;
+let modalPortionScale = 1;
+let activeRecipe = null;
+let currentZoom = 1;
+let favorites = [];
+
+try {
+  favorites = JSON.parse(localStorage.getItem('moms_favs') || '[]');
+} catch(e){ favorites = []; }
+
+function saveFavorites(){
+  try { localStorage.setItem('moms_favs', JSON.stringify(favorites)); } catch(e){}
+  updateFavBadge();
+}
+
+function updateFavBadge(){
+  const cnt = favorites.length;
+  $('#favCount').textContent = cnt;
+  $('#badgeFav').textContent = cnt;
+}
+updateFavBadge();
+
+/* ============ ПРЕЛОАДЕР ============ */
+const pre = $('#preloader');
+if (anim){
+  const num = { v:0 };
+  gsap.timeline({
+    onComplete(){
+      gsap.timeline({ onComplete(){ pre && pre.remove(); } })
+        .to('.pre-word span', { y:'-120%', duration:.5, stagger:.03, ease:'power3.in' }, 0)
+        .to(pre, { yPercent:-100, duration:.75, ease:'expo.inOut' }, .25);
+    }
+  })
+  .to('.pre-word span', { y:0, duration:.7, stagger:.04, ease:'power4.out' }, .1)
+  .to('#preFill', { scaleX:1, duration:1.1, ease:'power2.inOut' }, .15)
+  .to(num, { v:100, duration:1.1, ease:'power2.inOut',
+       onUpdate(){ $('#preNum').textContent = String(Math.round(num.v)).padStart(3,'0'); } }, .15);
+} else {
+  pre && pre.remove();
+}
+
+/* ============ ЖИДКИЙ GOO ХОЛСТ ============ */
+const gooCanvas = $('#goo');
+const gooCtx = gooCanvas.getContext('2d');
+let GW = 0, GH = 0, gooMouse = null;
+const blobColors = ['#d6f740','#f59e0b','#10b981','#ffffff','#f43f5e','#fde047','#a7f3d0'];
+let blobs = [];
+
+function gooResize(){
+  const r = gooCanvas.parentElement.getBoundingClientRect();
+  const s = .4;
+  GW = Math.max(2, r.width * s); GH = Math.max(2, r.height * s);
+  gooCanvas.width = GW; gooCanvas.height = GH;
+  if (!blobs.length){
+    blobs = blobColors.map((c,i) => ({
+      x: GW*(.15+.12*i), y: GH*(.3+.1*(i%3)),
+      r: GW*(.05+.035*((i*7)%4)),
+      vx: (Math.random()-.5)*.5, vy: (Math.random()-.5)*.5,
+      c
+    }));
+  }
+}
+gooResize();
+addEventListener('resize', gooResize);
+
+const heroEl = $('#hero');
+heroEl.addEventListener('pointermove', e => {
+  const r = gooCanvas.getBoundingClientRect();
+  gooMouse = { x:(e.clientX-r.left)/r.width*GW, y:(e.clientY-r.top)/r.height*GH };
+});
+heroEl.addEventListener('pointerleave', () => gooMouse = null);
+
+function gooDraw(dt){
+  gooCtx.clearRect(0,0,GW,GH);
+  for (const b of blobs){
+    if (!reduced){
+      b.x += b.vx * dt * .06;
+      b.y += b.vy * dt * .06;
+      if (gooMouse){
+        b.vx += (gooMouse.x - b.x) * .00035 * dt;
+        b.vy += (gooMouse.y - b.y) * .00035 * dt;
+      }
+      const vmax = 1.6;
+      b.vx = Math.max(-vmax, Math.min(vmax, b.vx));
+      b.vy = Math.max(-vmax, Math.min(vmax, b.vy));
+      if (b.x < -b.r) b.x = GW+b.r; if (b.x > GW+b.r) b.x = -b.r;
+      if (b.y < -b.r) b.y = GH+b.r; if (b.y > GH+b.r) b.y = -b.r;
+    }
+    const g = gooCtx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
+    g.addColorStop(0, b.c); g.addColorStop(.72, b.c); g.addColorStop(1, 'rgba(0,0,0,0)');
+    gooCtx.fillStyle = g;
+    gooCtx.beginPath(); gooCtx.arc(b.x, b.y, b.r, 0, 6.2832); gooCtx.fill();
+    gooCtx.fillStyle = 'rgba(255,255,255,.3)';
+    gooCtx.beginPath(); gooCtx.arc(b.x - b.r*.28, b.y - b.r*.32, b.r*.16, 0, 6.2832); gooCtx.fill();
+  }
+}
+
+/* ============ ЖИДКАЯ ЛИНЗА ============ */
+const lens = $('#lens');
+const lensHint = $('#lensHint');
+const dispMap = document.querySelector('#lensFilter feDisplacementMap');
+let L = { x:0, y:0, tx:0, ty:0, vx:0, vy:0, dragging:false, lastTouch:0, w:210, h:210 };
+
+function lensInit(){
+  const hr = heroEl.getBoundingClientRect();
+  L.w = lens.offsetWidth; L.h = lens.offsetHeight;
+  L.x = L.tx = hr.width * .72; L.y = L.ty = hr.height * .38;
+  lens.style.transform = `translate(${L.x - L.w/2}px, ${L.y - L.h/2}px)`;
+}
+lensInit();
+addEventListener('resize', lensInit);
+
+let dragOff = { x:0, y:0 };
+lens.addEventListener('pointerdown', e => {
+  L.dragging = true;
+  lens.classList.add('grabbed');
+  lensHint.classList.add('hide');
+  document.body.classList.add('cursor-dragging');
+  const r = lens.getBoundingClientRect();
+  dragOff.x = e.clientX - r.left - L.w/2;
+  dragOff.y = e.clientY - r.top  - L.h/2;
+  lens.setPointerCapture(e.pointerId);
+});
+lens.addEventListener('pointermove', e => {
+  if (!L.dragging) return;
+  const hr = heroEl.getBoundingClientRect();
+  const nx = e.clientX - hr.left - dragOff.x;
+  const ny = e.clientY - hr.top  - dragOff.y;
+  L.vx = nx - L.tx; L.vy = ny - L.ty;
+  L.tx = nx; L.ty = ny;
+});
+function lensRelease(){
+  if (!L.dragging) return;
+  L.dragging = false;
+  lens.classList.remove('grabbed');
+  document.body.classList.remove('cursor-dragging');
+  L.lastTouch = performance.now();
+}
+lens.addEventListener('pointerup', lensRelease);
+lens.addEventListener('pointercancel', lensRelease);
+
+function lensUpdate(t, dt){
+  if (!L.dragging){
+    L.tx += L.vx * dt * .06; L.ty += L.vy * dt * .06;
+    L.vx *= .94; L.vy *= .94;
+    if (performance.now() - L.lastTouch > 4000){
+      const hr = heroEl.getBoundingClientRect();
+      L.tx = hr.width*.52 + Math.sin(t*.35)*hr.width*.3;
+      L.ty = hr.height*.44 + Math.sin(t*.53 + 1.4)*hr.height*.22;
+    }
+  }
+  const k = L.dragging ? .22 : .06;
+  L.x += (L.tx - L.x) * k;
+  L.y += (L.ty - L.y) * k;
+  lens.style.transform = `translate(${L.x - L.w/2}px, ${L.y - L.h/2}px)`;
+  if (dispMap && L.dragging){
+    const sp = Math.min(60, Math.hypot(L.vx, L.vy));
+    dispMap.setAttribute('scale', 85 + sp*2.2);
+  } else if (dispMap){
+    dispMap.setAttribute('scale', 85);
+  }
+}
+
+/* ============ КУРСОР ============ */
+const cDot = $('.cursor-dot'), cRing = $('.cursor-ring');
+const cur = { x:innerWidth/2, y:innerHeight/2, rx:innerWidth/2, ry:innerHeight/2 };
+if (finePointer){
+  addEventListener('pointermove', e => { cur.x = e.clientX; cur.y = e.clientY; });
+}
+function cursorUpdate(){
+  if (!finePointer) return;
+  cur.rx += (cur.x - cur.rx) * .16;
+  cur.ry += (cur.y - cur.ry) * .16;
+  cDot.style.transform = `translate(${cur.x}px,${cur.y}px) translate(-50%,-50%)`;
+  cRing.style.transform = `translate(${cur.rx}px,${cur.ry}px) translate(-50%,-50%)`;
+}
+
+/* ============ TILT CTA-ПАНЕЛИ ============ */
+const ctaPanel = $('#ctaPanel');
+const tilt = { rx:0, ry:0, trx:0, try_:0 };
+if (finePointer && ctaPanel){
+  ctaPanel.addEventListener('pointermove', e => {
+    const r = ctaPanel.getBoundingClientRect();
+    tilt.try_ = ((e.clientX - r.left)/r.width  - .5) *  7;
+    tilt.trx = (.5 - (e.clientY - r.top)/r.height) * 5;
+  });
+  ctaPanel.addEventListener('pointerleave', () => { tilt.trx = 0; tilt.try_ = 0; });
+}
+function tiltUpdate(){
+  if (!ctaPanel) return;
+  tilt.rx += (tilt.trx - tilt.rx) * .08;
+  tilt.ry += (tilt.try_ - tilt.ry) * .08;
+  ctaPanel.style.transform = `rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg)`;
+}
+
+/* ============ ИГРОВОЙ ЦИКЛ РЕНДЕРИНГА ============ */
+if (hasGsap){
+  gsap.ticker.add((time, deltaMS) => {
+    const dt = Math.min(50, deltaMS);
+    gooDraw(dt);
+    lensUpdate(time, dt);
+    cursorUpdate();
+    tiltUpdate();
+  });
+} else {
+  (function loop(t){
+    gooDraw(16); lensUpdate((t||0)/1000, 16); cursorUpdate(); tiltUpdate();
+    requestAnimationFrame(loop);
+  })(0);
+}
+
+/* ============ НАВИГАЦИЯ ПРИ СКРОЛЛЕ ============ */
+const nav = $('#nav');
+addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', scrollY > 40);
+}, { passive:true });
+
+/* ============ ЧАСЫ СОЛИКАМСКА ============ */
+function tick(){
+  const now = new Date();
+  const utc5 = new Date(now.getTime() + (5 * 60 + now.getTimezoneOffset()) * 60000);
+  $('#clock').textContent = 'Соликамск (UTC+5) ' +
+    String(utc5.getHours()).padStart(2,'0') + ':' + String(utc5.getMinutes()).padStart(2,'0');
+}
+tick(); setInterval(tick, 10000);
+
+/* ============ FAQ АККОРДЕОН ============ */
+$$('.faq-item').forEach(item => {
+  item.querySelector('.faq-q').addEventListener('click', () => {
+    const wasOpen = item.classList.contains('open');
+    $$('.faq-item.open').forEach(o => o.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+
+/* ============ МАСШТАБИРОВАНИЕ ЧИСЕЛ ИНГРЕДИЕНТОВ ============ */
+function formatAmount(baseAmount, scale){
+  if (baseAmount === null || baseAmount === undefined) return '';
+  const scaled = baseAmount * scale;
+  if (Number.isInteger(scaled)) return String(scaled);
+  if (scaled === 0.5) return '1/2';
+  if (scaled === 1.5) return '1.5';
+  if (scaled === 2.5) return '2.5';
+  if (scaled === 0.25) return '1/4';
+  if (scaled === 0.75) return '3/4';
+  return scaled.toFixed(1).replace('.0', '');
+}
+
+/* ============ ГЕНЕРАЦИЯ КАРТОЧЕК ============ */
+function renderCards(){
+  const grid = $('#recipesGrid');
+  const q = currentSearch.trim().toLowerCase();
+
+  const filtered = RECIPES_DATA.filter(r => {
+    // Фильтр категории
+    if (activeCategory === 'fav'){
+      if (!favorites.includes(r.id)) return false;
+    } else if (activeCategory !== 'all'){
+      if (r.category !== activeCategory) return false;
+    }
+    // Поисковый запрос
+    if (q){
+      const inTitle = r.title.toLowerCase().includes(q);
+      const inCat = r.categoryName.toLowerCase().includes(q);
+      const inTags = r.tags.some(t => t.toLowerCase().includes(q));
+      const inIngs = r.ingredients.some(i => i.item.toLowerCase().includes(q));
+      if (!inTitle && !inCat && !inTags && !inIngs) return false;
+    }
+    return true;
+  });
+
+  $('#resultsCount').textContent = `Показано: ${filtered.length} из ${RECIPES_DATA.length} блюд`;
+
+  if (filtered.length === 0){
+    grid.innerHTML = `
+      <div style="grid-column:1/-1;text-align:center;padding:80px 20px;border-radius:24px;border:1px dashed var(--line);background:rgba(255,255,255,.02)">
+        <p style="font-family:var(--font-d);font-size:22px;margin-bottom:12px">Ничего не найдено</p>
+        <p style="color:var(--mut);font-size:15px;margin-bottom:24px">Попробуйте ввести другой ингредиент (например, «чеснок», «сыр», «перец») или выберите категорию «Все»</p>
+        <button class="btn btn-primary" onclick="clearSearch();filterCategory('all')">Показать все рецепты</button>
+      </div>
+    `;
+    return;
+  }
+
+  grid.innerHTML = filtered.map(r => {
+    const isFav = favorites.includes(r.id);
+    const topIngs = r.ingredients.slice(0, 4).map(ing => {
+      const amt = ing.amount ? formatAmount(ing.amount, currentPortionScale) + ' ' + ing.unit : ing.unit;
+      return `<span class="ing-pill">${ing.item}: <b>${amt}</b></span>`;
+    }).join('');
+
+    return `
+      <div class="rcard" data-id="${r.id}">
+        <div class="rcard-media" onclick="openCookModal('${r.id}')">
+          <img src="${r.photo}" alt="${r.title}" loading="lazy">
+          <span class="rcard-badge">${r.categoryIcon} ${r.categoryName}</span>
+          <span class="rcard-time">⏱ ${r.time}</span>
+          <button class="rcard-fav ${isFav ? 'active' : ''}" onclick="event.stopPropagation();toggleFav('${r.id}')" title="В любимые">
+            <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          </button>
+        </div>
+
+        <div class="rcard-body">
+          <div class="rcard-cat">${r.categoryIcon} ${r.categoryName}</div>
+          <h3 class="rcard-title" onclick="openCookModal('${r.id}')" style="cursor:pointer">${r.title}</h3>
+
+          <div class="rcard-ingredients-preview">
+            ${topIngs}
+          </div>
+
+          <div class="rcard-tip">
+            <b>Мамин секрет:</b>
+            "${r.momTip}"
+          </div>
+
+          <div class="rcard-actions">
+            <button class="btn-cook" onclick="openCookModal('${r.id}')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              Готовить
+            </button>
+            <button class="btn-photo-orig" onclick="openPhotoModal('${r.photo}', '${r.title}', '${r.photoName}')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Почерк
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Интерактивный spotlight при движении мыши по карточкам
+  $$('.rcard').forEach(card => {
+    card.addEventListener('pointermove', e => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+    });
+  });
+}
+
+window.renderCards = renderCards;
+
+/* ============ ФИЛЬТРАЦИЯ И ПОИСК ============ */
+window.filterCategory = function(cat){
+  activeCategory = cat;
+  $$('.cat-btn').forEach(btn => btn.classList.remove('active'));
+  const btn = $(`button[onclick="filterCategory('${cat}')"]`);
+  if (btn) btn.classList.add('active');
+  renderCards();
+};
+
+window.toggleFavFilter = function(){
+  filterCategory('fav');
+};
+
+window.toggleFav = function(id){
+  const idx = favorites.indexOf(id);
+  if (idx >= 0){
+    favorites.splice(idx, 1);
+  } else {
+    favorites.push(id);
+  }
+  saveFavorites();
+  renderCards();
+};
+
+const searchInput = $('#searchInput');
+const searchClear = $('#searchClear');
+searchInput.addEventListener('input', e => {
+  currentSearch = e.target.value;
+  searchClear.style.display = currentSearch ? 'block' : 'none';
+  renderCards();
+});
+
+window.clearSearch = function(){
+  searchInput.value = '';
+  currentSearch = '';
+  searchClear.style.display = 'none';
+  renderCards();
+};
+
+window.setPortionScale = function(scale){
+  currentPortionScale = scale;
+  $$('.portion-scaler .portion-btn').forEach(b => b.classList.remove('active'));
+  const b = $(`button[onclick="setPortionScale(${scale})"]`);
+  if (b) b.classList.add('active');
+  $('#scaleLabel').textContent = `Масштаб продуктов: ${scale}x (${scale === 0.5 ? 'половина' : scale === 2 ? 'двойная' : 'исходный'})`;
+  renderCards();
+};
+
+window.setFontSize = function(size){
+  document.body.classList.remove('font-sm', 'font-md', 'font-lg');
+  document.body.classList.add('font-' + size);
+  $$('.font-btn').forEach(b => b.classList.remove('active'));
+  $(`.font-btn[onclick="setFontSize('${size}')"]`).classList.add('active');
+};
+
+/* ============ МОДАЛКА ПРИГОТОВЛЕНИЯ ============ */
+window.openCookModal = function(id){
+  const r = RECIPES_DATA.find(x => x.id === id);
+  if (!r) return;
+  activeRecipe = r;
+  modalPortionScale = currentPortionScale;
+
+  $('#mCat').textContent = `${r.categoryIcon} ${r.categoryName}`;
+  $('#mTitle').textContent = r.title;
+  $('#mTime').innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> ${r.time}`;
+  $('#mDifficulty').textContent = `Сложность: ${r.difficulty}`;
+  $('#mServings').textContent = `Базово: ${r.servings} порции`;
+  $('#mTipText').textContent = r.momTip;
+
+  // Кнопки порций внутри модалки
+  $$('#cookModal .portion-btns .portion-btn').forEach(b => b.classList.remove('active'));
+  const btnActive = $(`#mPortion${modalPortionScale === 0.5 ? '05' : modalPortionScale === 2 ? '2' : '1'}`);
+  if (btnActive) btnActive.classList.add('active');
+
+  renderModalIngredients();
+
+  // Шаги
+  const stepsList = $('#mStepsList');
+  stepsList.innerHTML = r.steps.map((st, i) => `
+    <div class="step-row">
+      <div class="snum">${String(i+1).padStart(2,'0')}</div>
+      <div class="stext">${st}</div>
+    </div>
+  `).join('');
+
+  // Настройка таймера
+  initTimerForRecipe(r);
+
+  $('#cookModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+};
+
+window.closeCookModal = function(){
+  $('#cookModal').classList.remove('open');
+  document.body.style.overflow = '';
+  stopTimer();
+};
+
+window.setModalPortionScale = function(scale){
+  modalPortionScale = scale;
+  $$('#cookModal .portion-btns .portion-btn').forEach(b => b.classList.remove('active'));
+  const btnActive = $(`#mPortion${scale === 0.5 ? '05' : scale === 2 ? '2' : '1'}`);
+  if (btnActive) btnActive.classList.add('active');
+  renderModalIngredients();
+};
+
+function renderModalIngredients(){
+  if (!activeRecipe) return;
+  const list = $('#mIngredientsList');
+  list.innerHTML = activeRecipe.ingredients.map((ing, idx) => {
+    const amt = ing.amount ? formatAmount(ing.amount, modalPortionScale) + ' ' + ing.unit : ing.unit;
+    return `
+      <li class="ing-item" onclick="this.classList.toggle('checked')">
+        <div class="ing-chk">
+          <svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <span class="ing-text">${ing.item}</span>
+        <span class="ing-qty">${amt}</span>
+      </li>
+    `;
+  }).join('');
+}
+
+window.openPhotoFromModal = function(){
+  if (!activeRecipe) return;
+  openPhotoModal(activeRecipe.photo, activeRecipe.title, activeRecipe.photoName);
+};
+
+/* ============ МОДАЛКА ОРИГИНАЛЬНОГО ФОТО ============ */
+window.openPhotoModal = function(photoUrl, title, photoName){
+  currentZoom = 1;
+  $('#pmTitle').textContent = title;
+  $('#pmSubtitle').textContent = photoName || 'Оригинальный рукописный лист из маминой тетради';
+  const img = $('#pmImg');
+  img.src = photoUrl;
+  img.style.transform = 'scale(1)';
+  $('#photoModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+};
+
+window.closePhotoModal = function(){
+  $('#photoModal').classList.remove('open');
+  if (!$('#cookModal').classList.contains('open')){
+    document.body.style.overflow = '';
+  }
+};
+
+window.zoomPhoto = function(factor){
+  const img = $('#pmImg');
+  if (factor === 0){
+    currentZoom = 1;
+  } else {
+    currentZoom = Math.max(0.6, Math.min(3.5, currentZoom * factor));
+  }
+  img.style.transform = `scale(${currentZoom})`;
+};
+
+window.closeModalOnBackdrop = function(e, modalId){
+  if (e.target.id === modalId){
+    if (modalId === 'cookModal') closeCookModal();
+    if (modalId === 'photoModal') closePhotoModal();
+  }
+};
+
+addEventListener('keydown', e => {
+  if (e.key === 'Escape'){
+    closePhotoModal();
+    closeCookModal();
+  }
+});
+
+/* ============ КУХОННЫЙ ТАЙМЕР ============ */
+let timerInterval = null;
+let timerSecondsLeft = 0;
+let timerTotalSeconds = 0;
+let timerRunning = false;
+
+function initTimerForRecipe(r){
+  stopTimer();
+  timerSecondsLeft = r.timerSeconds || 1500;
+  timerTotalSeconds = timerSecondsLeft;
+  updateTimerDisplay();
+  $('#timerStatus').textContent = timerSecondsLeft > 0 ? `Мамин расчёт: ${r.time}` : 'Таймер в свободном режиме';
+}
+
+function updateTimerDisplay(){
+  const m = Math.floor(timerSecondsLeft / 60);
+  const s = timerSecondsLeft % 60;
+  $('#timerDisplay').textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+
+window.toggleTimer = function(){
+  if (timerRunning){
+    stopTimer();
+  } else {
+    startTimer();
+  }
+};
+
+function startTimer(){
+  if (timerSecondsLeft <= 0) timerSecondsLeft = 600;
+  timerRunning = true;
+  $('#btnTimerToggle').textContent = 'Пауза';
+  $('#btnTimerToggle').style.background = 'var(--coral)';
+  $('#timerDisplay').classList.add('running');
+  $('#timerStatus').textContent = 'Идёт отсчёт приготовления...';
+
+  timerInterval = setInterval(() => {
+    timerSecondsLeft--;
+    updateTimerDisplay();
+    if (timerSecondsLeft <= 0){
+      stopTimer();
+      onTimerFinished();
+    }
+  }, 1000);
+}
+
+function stopTimer(){
+  timerRunning = false;
+  clearInterval(timerInterval);
+  $('#btnTimerToggle').textContent = 'Старт';
+  $('#btnTimerToggle').style.background = 'var(--acid)';
+  $('#timerDisplay').classList.remove('running');
+  if (timerSecondsLeft > 0){
+    $('#timerStatus').textContent = 'На паузе';
+  }
+}
+
+window.resetTimer = function(){
+  stopTimer();
+  if (activeRecipe && activeRecipe.timerSeconds){
+    timerSecondsLeft = activeRecipe.timerSeconds;
+  } else {
+    timerSecondsLeft = 1500;
+  }
+  updateTimerDisplay();
+  $('#timerStatus').textContent = 'Таймер сброшен';
+};
+
+window.addTimerSeconds = function(sec){
+  timerSecondsLeft += sec;
+  updateTimerDisplay();
+};
+
+function playBeepSound(){
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const playTone = (freq, start, dur) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, ctx.currentTime + start);
+      gain.gain.setValueAtTime(0.3, ctx.currentTime + start);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + start + dur);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(ctx.currentTime + start);
+      osc.stop(ctx.currentTime + start + dur);
+    };
+    playTone(880, 0, 0.2);
+    playTone(1174, 0.25, 0.2);
+    playTone(1320, 0.5, 0.4);
+  } catch(e){}
+}
+
+function onTimerFinished(){
+  $('#timerDisplay').textContent = 'ГОТОВО!';
+  $('#timerStatus').textContent = 'Блюдо готово! Снимите с огня!';
+  playBeepSound();
+  alert('🔔 Дзынь! Мамин таймер сработал! Время проверить блюдо!');
+}
+
+/* ============ СЛУЧАЙНОЕ БЛЮДО ============ */
+window.pickRandomDish = function(){
+  const rand = RECIPES_DATA[Math.floor(Math.random() * RECIPES_DATA.length)];
+  openCookModal(rand.id);
+};
+
+/* ============ КОПИРОВАНИЕ РЕЦЕПТА ============ */
+window.copyRecipeText = function(){
+  if (!activeRecipe) return;
+  const r = activeRecipe;
+  const ings = r.ingredients.map(i => `- ${i.item}: ${i.amount ? formatAmount(i.amount, modalPortionScale) + ' ' + i.unit : i.unit}`).join('\n');
+  const steps = r.steps.map((s, idx) => `${idx + 1}. ${s}`).join('\n');
+  const txt = `🍳 ${r.title}\nКатегория: ${r.categoryName}\nВремя: ${r.time}\n\nИНГРЕДИЕНТЫ (на ${r.servings * modalPortionScale} порц.):\n${ings}\n\nШАГИ ПРИГОТОВЛЕНИЯ:\n${steps}\n\nСЕКРЕТ МАМЫ: ${r.momTip}\n\n❤️ Рецепт из маминого кулинарного архива`;
+
+  navigator.clipboard.writeText(txt).then(() => {
+    alert('📋 Рецепт скопирован в буфер обмена! Можно отправить маме в Telegram или WhatsApp.');
+  }).catch(() => {
+    prompt('Скопируйте текст рецепта:', txt);
+  });
+};
+
+/* ============ ПЕРВОНАЧАЛЬНЫЙ РЕНДЕР ============ */
+renderCards();
+
+})();
+</script>
+</body>
+</html>
